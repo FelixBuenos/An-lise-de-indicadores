@@ -1,0 +1,189 @@
+<!DOCTYPE html>  
+<html lang="pt-br">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Gráficos e Rankings - Conviva</title>  
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="css/globais/variaveis.css">  
+    <link rel="stylesheet" href="css/globais/base.css">  
+    <link rel="stylesheet" href="css/globais/layout.css">  
+    <link rel="stylesheet" href="css/componentes/header/header.css">  
+    <link rel="stylesheet" href="css/paginas/graficos.css">  
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            margin-top: 15px;
+        }
+        .mensagem-sem-dados {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        /* Estilização da Tabela de Detalhamento */
+        .tabela-detalhamento {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 0.85rem;
+        }
+        .tabela-detalhamento th {
+            background-color: #f8fafc;
+            color: #0f172a;
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+        }
+        .tabela-detalhamento td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+        .tabela-detalhamento tr:hover {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>  
+<body>  
+  
+    <header class="cabecalho-dashboard" style="background-color: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 12px 24px;">  
+        <div class="cabecalho_container" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1600px; margin: 0 auto;">  
+            
+            <div class="report-title-container" style="display: flex; align-items: center; gap: 16px;">  
+                <img src="imagens/logo-farmacias-conviva.png" alt="Logo Conviva" class="logo-conviva" style="height: 40px;">  
+                <h1 class="titulo_pagina" style="margin: 0; font-size: 1.25rem; color: #0f172a; font-weight: 600;">Análise Gráfica de Performance</h1>  
+            </div>  
+   
+            <div class="filtros" style="display: flex; align-items: center; gap: 20px;">  
+                <a href="painel.html" class="btn-header-voltar" style="display: flex; align-items: center; gap: 6px; text-decoration: none; color: #475569; font-weight: 600; font-size: 0.9rem;">  
+                    <i class="fas fa-arrow-left"></i> Voltar ao Menu  
+                </a>  
+  
+                <div class="filter-group" style="display: flex; align-items: center; gap: 8px;">  
+                    <label for="select-mes" class="filter-label" style="font-size: 0.85rem; font-weight: 700; color: #0f172a; text-transform: uppercase;">Mês:</label>  
+                    <select id="select-mes" class="filter-select" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 0.85rem; color: #0f172a; background-color: #f8fafc; outline: none; cursor: pointer;">
+                        <option value="">Todos</option>
+                    </select>  
+                </div>
+
+                <div class="filter-group" style="display: flex; align-items: center; gap: 8px;">  
+                    <label for="select-periodo" class="filter-label" style="font-size: 0.85rem; font-weight: 700; color: #0f172a; text-transform: uppercase;">Semana:</label>  
+                    <select id="select-periodo" class="filter-select" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 0.85rem; color: #0f172a; background-color: #f8fafc; outline: none; cursor: pointer;"></select>  
+                </div>  
+  
+                <button id="btn-atualizar-graficos" class="btn-filtrar" style="display: flex; align-items: center; gap: 6px; background-color: #0055a5; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: background-color 0.2s;">
+                    <i class="fas fa-sync-alt"></i> Atualizar Gráficos
+                </button>
+            </div>  
+        </div>  
+    </header>  
+
+    <main class="dashboard-main" style="padding: 24px; max-width: 1600px; margin: 0 auto; box-sizing: border-box;">
+        
+        <!-- Grid Superior -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 24px; margin-bottom: 24px;">
+            <div style="background: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>
+                    <h2 style="margin: 0; font-size: 1.1rem; color: #0f172a;">Top 10 Lojas – Eficientes</h2>
+                </div>
+                <p style="margin: 0; font-size: 0.85rem; color: #64748b;">Filiais com menor índice de risco operacional na semana selecionada</p>
+                <div class="chart-container">
+                    <span id="msg-sem-dados-positivo" class="mensagem-sem-dados">Nenhum dado registrado para esta semana.</span>
+                    <canvas id="chartPositivo"></canvas>
+                </div>
+            </div>
+
+            <div style="background: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 1.2rem;"></i>
+                    <h2 style="margin: 0; font-size: 1.1rem; color: #0f172a;">Top 10 Lojas – Críticas</h2>
+                </div>
+                <p style="margin: 0; font-size: 0.85rem; color: #64748b;">Pontos de atenção que demandam auditoria ou suporte comercial imediato</p>
+                <div class="chart-container">
+                    <span id="msg-sem-dados-critico" class="mensagem-sem-dados">Nenhum dado registrado para esta semana.</span>
+                    <canvas id="chartCritico"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid Inferior -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 24px; margin-bottom: 24px;">
+            <div style="background: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <i class="fas fa-chart-line" style="color: #f59e0b; font-size: 1.2rem;"></i>
+                    <h2 style="margin: 0; font-size: 1.1rem; color: #0f172a;">Top 10 Lojas – Maior Oscilação (Alerta)</h2>
+                </div>
+                <p style="margin: 0; font-size: 0.85rem; color: #64748b;">Filiais com o maior aumento no índice de risco em relação à semana anterior</p>
+                <div class="chart-container">
+                    <span id="msg-sem-dados-oscilacao" class="mensagem-sem-dados">Nenhuma oscilação relevante registrada no período.</span>
+                    <canvas id="chartOscilacao"></canvas>
+                </div>
+            </div>
+
+            <div style="background: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                    <i class="fas fa-shield-alt" style="color: #0ea5e9; font-size: 1.2rem;"></i>
+                    <h2 style="margin: 0; font-size: 1.1rem; color: #0f172a;">Saúde da Rede (Distribuição por Status)</h2>
+                </div>
+                <p style="margin: 0 0 20px 0; font-size: 0.85rem; color: #64748b;">Selecione o status operacional desejado para detalhar as filiais:</p>
+                <div style="display: flex; gap: 16px; justify-content: center; align-items: center; width: 100%; min-height: 120px; flex-wrap: wrap;">
+                    <button id="btn-status-baixo" style="background-color: #10b981; color: white; border: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(16, 185, 129, 0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(16, 185, 129, 0.3)';">
+                        <i class="fas fa-check-circle" style="font-size: 1.3rem;"></i> Verde (Baixo) <span id="count-baixo" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-left: 6px;">(0)</span>
+                    </button>
+                    <button id="btn-status-medio" style="background-color: #f59e0b; color: white; border: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(245, 158, 11, 0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(245, 158, 11, 0.3)';">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 1.3rem;"></i> Amarelo (Médio) <span id="count-medio" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-left: 6px;">(0)</span>
+                    </button>
+                    <button id="btn-status-alto" style="background-color: #ef4444; color: white; border: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(239, 68, 68, 0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(239, 68, 68, 0.3)';">
+                        <i class="fas fa-times-circle" style="font-size: 1.3rem;"></i> Vermelho (Alto) <span id="count-alto" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-left: 6px;">(0)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOVO CARD: Tabela Dinâmica exibida após o clique na barra do gráfico -->
+        <div id="container-detalhe-rosca" style="display: none; background: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div>
+                    <h3 id="titulo-detalhe-rosca" style="margin: 0; font-size: 1.1rem; color: #0f172a;">Detalhamento das Lojas</h3>
+                    <p id="subtitulo-detalhe-rosca" style="margin: 4px 0 0 0; font-size: 0.85rem; color: #64748b;">Listagem de filiais da fatia selecionada</p>
+                </div>
+                <button id="btn-fechar-detalhe-rosca" style="background: transparent; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #64748b; font-weight: 600;">
+                    <i class="fas fa-times"></i> Fechar Tabela
+                </button>
+            </div>
+
+            <div style="overflow-x: auto; max-height: 400px;">
+                <table class="tabela-detalhamento">
+                    <thead>
+                        <tr>
+                            <th>Filial</th>
+                            <th>Rede</th>
+                            <th>Status Operacional</th>
+                            <th>Índice de Risco</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-detalhe-rosca">
+                        <!-- Linhas geradas dinamicamente via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module" src="graficos.js?v=4"></script>
+</body>  
+</html>

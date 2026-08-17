@@ -1,0 +1,146 @@
+/* css/paginas/painel.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
+
+/* ─── Variáveis Globais (Tom Marinho Ajustado e Sóbrio) ─ */
+:root {
+  /* Fundo Gradiente Equilibrado (Nem tão claro, nem tão escuro) */
+  --p-bg-light:       #003b70; /* Azul marinho fechado imperial */
+  --p-bg-dark:        #001a38; /* Azul marinho profundo elegante */
+  
+  /* Superfícies dos Cards */
+  --p-surface:        #ffffff;
+  --p-border:         rgba(255, 255, 255, 0.12);
+  
+  /* Cores Identidade Conviva */
+  --p-primary:        #0055a5;
+  --p-accent:         #dc2626; /* Vermelho institucional */
+  
+  /* Textos */
+  --p-text-light:     #ffffff;
+  --p-text-dark:      #0f172a;
+  --p-text-muted:     #64748b;
+  --p-text-muted-alt: #cbd5e1;
+  
+  /* Animações e Sombras */
+  --p-ease:           cubic-bezier(0.16, 1, 0.3, 1);
+  --p-shadow:         0 20px 45px rgba(0, 0, 0, 0.25);
+  --p-shadow-hover:   0 30px 55px rgba(0, 0, 0, 0.45);
+}
+
+/* ─── Aplicação do Fundo na Página Toda ──────────────── */
+body {
+  background: linear-gradient(135deg, var(--p-bg-light) 0%, var(--p-bg-dark) 100%) !important;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--p-text-light);
+  font-family: 'Sora', sans-serif;
+}
+
+/* ─── Ajuste do Cabeçalho (Fumê Suave) ───────────────── */
+.cabecalho-dashboard {
+  background: rgba(0, 26, 56, 0.5) !important; /* Vidro fumê ajustado */
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cabecalho-dashboard .titulo_pagina {
+  color: var(--p-text-light) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Estrutura Principal ─────────────────────────────── */
+.menu-principal {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 80px 24px; max-width: 1200px; margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.boas-vindas { text-align: center; margin-bottom: 56px; }
+.boas-vindas h2 { font-size: 2.2rem; font-weight: 700; color: var(--p-text-light); margin-bottom: 12px; letter-spacing: -0.02em; }
+.boas-vindas p { color: var(--p-text-muted-alt); font-size: 1.05rem; }
+
+/* ─── Grid de Cards ───────────────────────────────────── */
+.grid-baloes {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px; width: 100%;
+}
+
+.card-link { text-decoration: none; display: block; }
+
+/* ─── Visual do Card (Alto Contraste Blanco) ──────────── */
+.card-balao {
+  background: var(--p-surface); border-radius: 20px;
+  padding: 36px 30px; height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 4px solid var(--p-primary); 
+  box-shadow: var(--p-shadow);
+  display: flex; flex-direction: column; position: relative;
+  transition: transform 0.4s var(--p-ease), box-shadow 0.4s var(--p-ease);
+}
+
+.card-link:nth-child(2) .card-balao {
+  border-top-color: var(--p-accent);
+}
+
+/* ─── Efeitos de Interação (Hover) ────────────────────── */
+.card-link:hover .card-balao {
+  transform: translateY(-8px);
+  box-shadow: var(--p-shadow-hover);
+}
+
+/* Ícones dos Cards */
+.icone-balao {
+  width: 56px; height: 56px;
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; color: var(--p-primary); margin-bottom: 24px;
+  transition: transform 0.4s var(--p-ease);
+}
+
+.card-link:nth-child(2) .icone-balao {
+  color: var(--p-accent) !important;
+}
+
+.card-link:hover .icone-balao {
+  transform: scale(1.08);
+}
+
+/* ─── Tipografia Interna ──────────────────────────────── */
+.card-balao h3 { color: var(--p-text-dark); font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+.card-balao p { color: var(--p-text-muted); font-size: 0.925rem; line-height: 1.65; flex-grow: 1; margin-bottom: 28px; }
+
+/* ─── Botões de Ação Internos ─────────────────────────── */
+.btn-acessar {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--p-primary); font-weight: 600; font-size: 0.9rem;
+  padding: 10px 20px; border-radius: 8px;
+  background: rgba(0, 85, 165, 0.06); align-self: flex-start;
+  transition: all 0.3s var(--p-ease);
+}
+
+.card-link:nth-child(2) .btn-acessar {
+  color: var(--p-accent);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+/* Animação expansiva do botão no hover */
+.card-link:hover .btn-acessar { 
+  gap: 14px;
+}
+.card-link:nth-child(1):hover .btn-acessar {
+  background: var(--p-primary);
+  color: #ffffff;
+}
+.card-link:nth-child(2):hover .btn-acessar {
+  background: var(--p-accent);
+  color: #ffffff;
+}
+
+/* ─── Responsividade ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .menu-principal { padding: 48px 16px; }
+  .boas-vindas h2 { font-size: 1.75rem; }
+  .grid-baloes { gap: 20px; }
+  .card-balao { padding: 28px 22px; }
+}

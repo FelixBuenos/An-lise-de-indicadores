@@ -1,0 +1,463 @@
+/* js/componentes/avaliacao.css */
+
+/* Fundo escuro que cobre a tela toda com animação suave */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6); /* Azul escuro semi-transparente */
+    backdrop-filter: blur(6px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* A caixa principal do formulário */
+.modal-conteudo {
+    background: #ffffff;
+    width: 95%;
+    max-width: 950px; /* Um pouco mais largo para a tabela respirar */
+    border-radius: 16px; /* Bordas bem redondinhas */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Sombra 3D profunda */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animação de entrada da janela */
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Cabeçalho refinado */
+.modal-cabecalho {
+    background: #2b55a1; 
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-cabecalho h2 { 
+    margin: 0; 
+    font-size: 1.25rem; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Botão de fechar (X) moderno */
+.btn-fechar {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-fechar:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(90deg);
+}
+
+.modal-corpo { 
+    padding: 24px; 
+}
+
+/* Informações de cabeçalho (Grid) */
+.info-unidade-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels com cara de sistema profissional */
+.campo label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b; 
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs globais do formulário */
+.campo input, 
+.campo select {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 0.95rem;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Efeito ao clicar no input (Anel azul) */
+.campo input:focus,
+.campo select:focus {
+    border-color: #2b55a1;
+    box-shadow: 0 0 0 3px rgba(43, 85, 161, 0.15);
+}
+
+/* Campos bloqueados (Somente leitura) */
+.campo input[readonly] { 
+    background-color: #f8fafc; 
+    color: #64748b;
+    cursor: text;
+    border-color: #e2e8f0;
+} 
+
+/* =========================================
+   TABELA DINÂMICA
+   ========================================= */
+.tabela-avaliacao { 
+    width: 100%; 
+    border-collapse: separate; 
+    border-spacing: 0;
+    margin-top: 10px; 
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.tabela-avaliacao th, 
+.tabela-avaliacao td { 
+    padding: 12px 16px; 
+    text-align: left; 
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+/* Cabeçalho da tabela suave e limpo */
+.tabela-avaliacao th { 
+    background: #f1f5f9; 
+    color: #334155; 
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabela-avaliacao tbody tr:last-child td { border-bottom: none; }
+.tabela-avaliacao tbody tr:hover { background-color: #f8fafc; }
+
+/* Sobrescrevendo os inputs injetados pelo JavaScript */
+.tabela-avaliacao input, 
+.tabela-avaliacao textarea {
+    width: 100% !important; 
+    border: 1px solid transparent !important; 
+    border-radius: 6px !important; 
+    padding: 10px 12px !important; 
+    background: #f1f5f9 !important;
+    transition: all 0.2s ease !important;
+    outline: none !important;
+    color: #1e293b !important;
+}
+
+.tabela-avaliacao input:hover, 
+.tabela-avaliacao textarea:hover {
+    background: #e2e8f0 !important;
+}
+
+.tabela-avaliacao input:focus, 
+.tabela-avaliacao textarea:focus {
+    background: #ffffff !important;
+    border-color: #2b55a1 !important;
+    box-shadow: 0 0 0 3px rgba(43, 85, 161, 0.1) !important;
+}
+
+.nome-indicador { color: #0f172a; font-size: 0.95rem; }
+
+/* =========================================
+   BOTÕES DE AÇÃO
+   ========================================= */
+#btn-add-indicador {
+    background: #3b82f6 !important; 
+    color: white !important; 
+    border: none !important; 
+    padding: 10px 20px !important; 
+    border-radius: 8px !important; 
+    cursor: pointer !important; 
+    font-weight: 600 !important; 
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2) !important;
+}
+
+#btn-add-indicador:hover {
+    background: #2563eb !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Botão da Lixeira Vermelho Moderno */
+.btn-remover-linha {
+    background: #fee2e2 !important;
+    border: none !important;
+    color: #ef4444 !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-remover-linha:hover {
+    background: #fca5a5 !important;
+    color: #b91c1c !important;
+    transform: scale(1.05) !important;
+}
+
+.modal-rodape { 
+    padding: 20px 24px; 
+    background: #f8fafc; 
+    text-align: right; 
+    border-top: 1px solid #e2e8f0; 
+}
+
+.btn-salvar { 
+    background: #10b981; 
+    color: white; 
+    border: none; 
+    padding: 12px 28px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.btn-salvar:hover { 
+    background: #059669; 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+}
+
+/* Customização da barra de rolagem para ficar mais elegante */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ==========================================
+   ESTILOS DOS BOTÕES DO CABEÇALHO (HEADER)
+   ========================================== */
+.btn-header-voltar {
+    margin-right: 12px;
+    background-color: transparent;
+    color: #003b70;
+    border: 1px solid #003b70;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-header-voltar:hover {
+    background-color: #003b70;
+    color: #ffffff;
+}
+
+.btn-header-acao {
+    margin-left: 10px;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+    color: #ffffff;
+}
+
+.btn-acao-azul { background-color: #2b55a1; }
+.btn-acao-azul:hover { background-color: #1a3c7a; }
+
+.btn-acao-cinza { background-color: #64748b; }
+.btn-acao-cinza:hover { background-color: #475569; }
+
+/* ==========================================
+   ESTILOS DO CONTAINER HISTÓRICO E TABELA
+   ========================================== */
+.container-historico {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.titulo-historico {
+    color: #2b55a1;
+    margin-bottom: 15px;
+}
+
+.celula-destaque-secundaria {
+    font-weight: 600;
+    color: #64748b;
+}
+
+.celula-destaque-primaria {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* ==========================================
+   ESTILOS INTERNOS DO MODAL DE AVALIAÇÃO
+   ========================================== */
+.divisor-modal {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.titulo-secao-indicadores {
+    color: #2b55a1;
+    margin-bottom: 10px;
+}
+
+/* Botões de Categorias */
+.botoes-bloco-wrapper {
+    margin-bottom: 15px;
+}
+
+.label-botoes-bloco {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.botoes-bloco-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-bloco {
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-bloco-comercial { background: #0ea5e9; }
+.btn-bloco-comercial:hover { background: #0284c7; }
+
+.btn-bloco-checklist { background: #f59e0b; }
+.btn-bloco-checklist:hover { background: #d97706; }
+
+.btn-bloco-rh { background: #10b981; }
+.btn-bloco-rh:hover { background: #059669; }
+
+.btn-bloco-limpar {
+    background: #ef4444;
+    margin-left: auto;
+}
+.btn-bloco-limpar:hover { background: #dc2626; }
+
+/* Container Dinâmico */
+.selecao-dinamica-container {
+    margin-bottom: 15px;
+    align-items: flex-end;
+    gap: 10px;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.campo-selecao-dinamica {
+    flex: 1;
+    margin: 0;
+}
+
+.label-dinamica {
+    color: #0f172a;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.select-dinamico {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.btn-add-dinamico {
+    background: #2b55a1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+    height: 42px;
+}
+
+.btn-add-dinamico:hover {
+    background: #1a3c7a;
+}
+
+/* Estrutura da Tabela no Modal */
+.tabela-avaliacao-wrapper {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.col-indicador { width: 20%; }
+.col-resultado { width: 15%; text-align: center; }
+.col-acao { width: 40%; }
+.col-status { width: 20%; }
+.col-remover { width: 5%; text-align: center; }
+
+.msg-tabela-vazia {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}

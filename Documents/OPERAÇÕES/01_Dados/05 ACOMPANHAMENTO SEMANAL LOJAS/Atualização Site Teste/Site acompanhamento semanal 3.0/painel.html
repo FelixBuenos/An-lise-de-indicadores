@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Gerencial - Conviva</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/globais/variaveis.css">
+    <link rel="stylesheet" href="css/globais/base.css">
+    <link rel="stylesheet" href="css/componentes/header/header.css">
+    <link rel="stylesheet" href="css/paginas/painel.css">
+</head>
+<body>
+
+    <header class="cabecalho-dashboard">
+        <div class="cabecalho_container" style="position: relative; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            
+            <div>
+                <img src="imagens/Logo Conviva branco-02.png" alt="Logo Conviva" class="logo-conviva">
+            </div>
+            
+            <h1 class="titulo_pagina" style="position: absolute; left: 50%; transform: translateX(-50%); margin: 0; white-space: nowrap;">Portal Gerencial</h1>
+            
+            <div class="filtros">
+                <button id="btn-sair" style="background-color: #64748b; color: #ffffff; border: none; padding: 10px 16px; font-size: 0.9rem; font-weight: 600; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s ease;">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="menu-principal">
+        
+        <div class="boas-vindas">
+            <h2>Selecione a Ferramenta</h2>
+            <p>Escolha o painel ou ferramenta que deseja acessar no momento.</p>
+        </div>
+
+        <div class="grid-baloes">
+            
+            <!-- Card 1: Acompanhamento Semanal -->
+            <a href="index.html" class="card-link">
+                <div class="card-balao">
+                    <div class="icone-balao">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Acompanhamento Semanal</h3>
+                    <p>Análise de indicadores, checklist de encartes, atingimento de metas e performance de filiais.</p>
+                    <span class="btn-acessar">Acessar Painel <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Card 2: Gráficos e Rankings -->
+            <a href="graficos.html" class="card-link">
+                <div class="card-balao">
+                    <div class="icone-balao">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Gráficos e Rankings</h3>
+                    <p>Visão geral de performance. Rankings Top 10 das filiais mais eficientes e lojas críticas sob atenção.</p>
+                    <span class="btn-acessar">Visualizar Gráficos <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- Script de Logout e Proteção de Rota -->
+    <script type="module">
+        import { supabase } from './js/servicos/supabaseClient.js';
+
+        async function verificarSessao() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            verificarSessao();
+
+            const btnSair = document.getElementById('btn-sair');
+            if (btnSair) {
+                btnSair.addEventListener('click', async () => {
+                    const { error } = await supabase.auth.signOut();
+                    if (!error) {
+                        window.location.href = 'login.html'; 
+                    } else {
+                        console.error('Erro ao encerrar sessão:', error);
+                        alert('Não foi possível sair no momento. Tente novamente.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

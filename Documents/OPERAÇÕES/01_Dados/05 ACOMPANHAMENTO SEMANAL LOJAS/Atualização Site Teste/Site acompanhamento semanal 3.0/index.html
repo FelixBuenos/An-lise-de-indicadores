@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento Semanal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/globais/variaveis.css?v=3">
+    <link rel="stylesheet" href="css/globais/base.css?v=3">
+    <link rel="stylesheet" href="css/globais/layout.css?v=3">
+    
+    <link rel="stylesheet" href="css/componentes/header/header.css?v=3">
+    <link rel="stylesheet" href="css/componentes/filtros/filtros.css?v=3">
+    
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-base.css?v=3">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-dados-lojas.css?v=3">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-checklist.css?v=3">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-media.css?v=3">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-adicional.css?v=3">
+    
+    <link rel="stylesheet" href="css/componentes/avaliacao.css?v=3">
+</head>
+<body>
+
+    <header class="cabecalho-dashboard">
+        <div class="cabecalho_container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%; gap: 16px;">
+            <div class="report-title-container" style="display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
+                <img src="imagens/logo-farmacias-conviva.png" alt="Logo Conviva" class="logo-conviva">
+                <h1 id="report-name" class="titulo_pagina"></h1>
+            </div>
+            
+            <div class="filtros" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; flex-grow: 1; justify-content: flex-end; min-width: 0;">
+                
+                <a href="painel.html" class="btn-header-voltar" style="white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-arrow-left"></i> Voltar ao Menu
+                </a>
+
+                <div class="filter-group">
+                    <label for="select-mes" class="filter-label">Mês:</label>
+                    <select id="select-mes" class="filter-select">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="select-periodo" class="filter-label">Semana:</label>
+                    <select id="select-periodo" class="filter-select"></select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="select-status" class="filter-label">Status:</label>
+                    <select id="select-status" class="filter-select">
+                        <option value="">Todos</option>
+                        <option value="critico">Crítico</option>
+                        <option value="medio">Médio</option>
+                        <option value="baixo">Baixo</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="select-rede" class="filter-label">Rede:</label>
+                    <select id="select-rede" class="filter-select">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="select-loja" class="filter-label">Filial:</label>
+                    <select id="select-loja" class="filter-select">
+                        <option value="">Carregando lojas...</option>
+                    </select>
+                </div>
+                
+                <button id="btn-filtrar" class="btn-primary">Filtrar</button>
+                
+                <button id="btn-exportar-pdf" class="btn-pdf">
+                    <i class="fas fa-file-pdf"></i> 
+                </button>
+
+                <button id="btn-nova-avaliacao" class="btn-header-acao btn-acao-azul">
+                    <i class="fas fa-edit"></i> 
+                </button>
+
+                <button id="btn-sair" class="btn-header-acao btn-acao-cinza">
+                    <i class="fas fa-sign-out-alt"></i> 
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        
+        <div class="tabela-container tabela-principal">
+            <table class="tabela-acompanhamento">
+                <thead>
+                    <tr>
+                        <th scope="col">INDICADORES</th>
+                        <th scope="col">SEMANA 4</th>
+                        <th scope="col">SEMANA 3</th>
+                        <th scope="col">SEMANA 2</th>
+                        <th scope="col">SEMANA ATUAL</th>
+                        <th scope="col">MS / MA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="coluna-fixa">Venda Liquida</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Itens Por Cliente</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Aproveitamento</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Ticket Médio</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">CMV</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Desconto</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Cobertura</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Excesso</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Falta</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">EAS</td><td></td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tabela-container tabela-larga">
+            <table class="tabela-acompanhamento">
+                <thead>
+                    <tr>
+                        <th scope="col">MÉTRICA</th>
+                        <th scope="col">VENDA LÍQUIDA</th>
+                        <th scope="col">ITENS/CLIENTE</th>
+                        <th scope="col">APROVEITAMENTO</th>
+                        <th scope="col">TICKET MÉDIO</th>
+                        <th scope="col">CMV</th>
+                        <th scope="col">DESCONTO</th>
+                        <th scope="col">COBERTURA</th>
+                        <th scope="col">EXCESSO</th>
+                        <th scope="col">FALTA</th>
+                        <th scope="col">EAS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="coluna-fixa">Média da Classe</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td class="coluna-fixa">Média Mercado</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="secao-dupla-tabelas">
+            
+            <div class="tabela-container tabela-resumo">
+                <table class="tabela-acompanhamento">
+                    <thead>
+                        <tr>
+                            <th scope="col">ÁREA</th>
+                            <th scope="col" id="th-mes-anterior">MÊS ANTERIOR</th>
+                            <th scope="col" id="th-nota-loja">NOTA LOJA</th>
+                            <th scope="col">MÉDIA REDE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="coluna-fixa">Estrutura da Área Externa</td><td></td><td></td><td></td></tr>
+                        <tr><td class="coluna-fixa">Estrutura da Área Interior</td><td></td><td></td><td></td></tr>
+                        <tr><td class="coluna-fixa">Atendimento e Padronização</td><td></td><td></td><td></td></tr>
+                        <tr><td class="coluna-fixa">Exposição de produtos</td><td></td><td></td><td></td></tr>
+                        <tr><td class="coluna-fixa">Delivery e Entrega</td><td></td><td></td><td></td></tr>
+                        <tr><td class="coluna-fixa">Aspectos Gerais</td><td></td><td></td><td></td></tr>
+                        <tr>
+                            <td class="coluna-fixa">Checklist promocional</td>
+                            <td id="mes-anterior-checklist-encarte" class="celula-destaque-secundaria"></td>
+                            <td id="dado-checklist-encarte" class="celula-destaque-primaria"></td>
+                            <td id="media-checklist-encarte" class="celula-destaque-primaria"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tabela-container tabela-adicional">
+                <table class="tabela-acompanhamento">
+                    <thead>
+                        <tr>
+                            <th scope="col">INDICADORES</th>
+                            <th scope="col">VALOR</th>
+                            <th scope="col">CLUSTER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="coluna-fixa">Folha de Pagamento</td><td id="rh-folha"></td><td id="cluster-folha"></td></tr>
+                        <tr><td class="coluna-fixa">Comissão</td><td id="rh-comissao"></td><td id="cluster-comissao"></td></tr>
+                        <tr><td class="coluna-fixa">Premiação</td><td id="rh-premiacao"></td><td id="cluster-premiacao"></td></tr>
+                        <tr><td class="coluna-fixa">Horas Extras</td><td id="rh-horas"></td><td id="cluster-horas"></td></tr>
+                        <tr><td class="coluna-fixa">Perdas x Faturamento</td><td id="rh-perdas"></td><td id="cluster-perdas"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="tabela-container container-historico">
+            <h3 class="titulo-historico">Histórico de Avaliações</h3>
+            <table id="tabela-historico" class="tabela-acompanhamento">
+                <thead>
+                    <tr>
+                        <th>DATA</th>
+                        <th>ASSOCIADO</th>
+                        <th>DETALHES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <div id="modal-avaliacao" class="modal-overlay" style="display: none;">
+        
+        <div class="modal-conteudo">
+            <div class="modal-cabecalho">
+                <h2>Avaliação Semanal</h2>
+                <button id="btn-fechar-modal" class="btn-fechar">&times;</button>
+            </div>
+    
+            <div class="modal-corpo">
+                <div class="info-unidade-grid">
+                    <div class="campo">
+                        <label>LOJA</label>
+                        <input type="text" id="aval-loja" readonly placeholder="Selecione no filtro...">
+                    </div>
+                    <div class="campo">
+                        <label>DATA AVALIAÇÃO</label>
+                        <input type="date" id="aval-data">
+                    </div>
+                    <div class="campo">
+                        <label>SEMANA AVALIADA</label>
+                        <input type="text" id="aval-semana" readonly placeholder="Selecione no filtro...">
+                    </div>
+                    <div class="campo">
+                        <label>ANALISTA</label>
+                        <input type="text" id="aval-analista" value="">
+                    </div>
+                    <div class="campo">
+                        <label>ASSOCIADO / GERENTE</label>
+                        <input type="text" id="aval-associado" placeholder="">
+                    </div>
+                </div>
+    
+                <hr class="divisor-modal">
+    
+                <h3 class="titulo-secao-indicadores">Indicadores / Plano de Ação</h3>
+                
+                <div class="botoes-bloco-wrapper">
+                    <label class="label-botoes-bloco">SELECIONE A TABELA QUE DESEJA AVALIAR</label>
+                    <div class="botoes-bloco-group">
+                        <button id="btn-bloco-comercial" type="button" class="btn-bloco btn-bloco-comercial">
+                            <i class="fas fa-chart-line"></i> Faturamento
+                        </button>
+                        <button id="btn-bloco-checklist" type="button" class="btn-bloco btn-bloco-checklist">
+                            <i class="fas fa-clipboard-check"></i> Checklist
+                        </button>
+                        <button id="btn-bloco-rh" type="button" class="btn-bloco btn-bloco-rh">
+                            <i class="fas fa-users"></i> RH
+                        </button>
+                        <button id="btn-limpar-tabela" type="button" class="btn-bloco btn-bloco-limpar">
+                            <i class="fas fa-trash-alt"></i> Limpar
+                        </button>
+                    </div>
+                </div>
+
+                <div id="container-selecao-dinamica" class="selecao-dinamica-container" style="display: none;">
+                    <div class="campo campo-selecao-dinamica">
+                        <label id="label-categoria-selecionada" class="label-dinamica">INDICADORES DISPONÍVEIS</label>
+                        <select id="select-indicador-dinamico" class="select-dinamico">
+                            </select>
+                    </div>
+                    <button id="btn-add-indicador-dinamico" type="button" class="btn-add-dinamico">
+                        <i class="fas fa-plus"></i> Adicionar à Avaliação
+                    </button>
+                </div>
+
+                <div class="tabela-avaliacao-wrapper">
+                    <table class="tabela-avaliacao">
+                        <thead>
+                            <tr>
+                                <th class="col-indicador">INDICADOR</th>
+                                <th class="col-resultado">RESULTADO</th>
+                                <th class="col-acao">AÇÃO</th>
+                                <th class="col-status">STATUS</th>
+                                <th class="col-remover"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-avaliacao">
+                        </tbody>
+                    </table>
+                    <p id="msg-tabela-vazia" class="msg-tabela-vazia">
+                        Nenhum indicador adicionado.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="modal-rodape">
+                <button id="btn-salvar-avaliacao" class="btn-salvar">Salvar no Histórico</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module" src="main.js?v=4"></script>
+</body>
+</html>

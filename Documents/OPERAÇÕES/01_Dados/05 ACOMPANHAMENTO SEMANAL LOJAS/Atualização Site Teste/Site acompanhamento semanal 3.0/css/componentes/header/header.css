@@ -1,0 +1,76 @@
+.cabecalho-dashboard {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 12px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: box-shadow var(--transition), transform var(--transition);
+    animation: fadeIn 0.4s ease-out 0.1s both;
+}
+
+.cabecalho-dashboard:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.cabecalho_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.logo-conviva {
+    height: 42px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    transition: filter var(--transition);
+}
+
+.logo-conviva:hover {
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.titulo_pagina {
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: var(--primary-vermelho-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 4px rgba(158, 43, 21, 0.1);
+}
+
+@media (max-width: 1650px) {
+    .cabecalho_container {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+    .report-title-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .titulo_pagina {
+        position: static;
+        transform: none;
+        text-align: center;
+        flex: 1;
+        margin-top: 8px;
+    }
+}
