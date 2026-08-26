@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Engenharia e Arquitetura de Software - Portal Conviva</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm;
+            @bottom-right {
+                content: counter(page);
+            }
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 11pt;
+            background: #ffffff;
+        }
+
+        .cover-page {
+            page-break-after: always;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, #003b70 0%, #001f3f 100%);
+            color: #ffffff;
+            border-radius: 12px;
+        }
+
+        .cover-header {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 20px;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .cover-title {
+            font-size: 26pt;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+            color: #ffffff;
+        }
+
+        .cover-subtitle {
+            font-size: 14pt;
+            color: #cbd5e1;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .cover-body {
+            margin: 40px 0;
+        }
+
+        .cover-desc {
+            font-size: 12pt;
+            color: #e2e8f0;
+            line-height: 1.7;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #38bdf8;
+        }
+
+        .cover-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            color: #94a3b8;
+        }
+
+        h1, h2, h3, h4 {
+            color: #003b70;
+            font-weight: 700;
+            page-break-after: avoid;
+        }
+
+        h1 {
+            font-size: 18pt;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            color: #1e40af;
+        }
+
+        p {
+            margin: 0 0 12px 0;
+            text-align: justify;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Callouts / Boxes */
+        .callout {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 4px solid;
+            font-size: 10pt;
+            page-break-inside: avoid;
+        }
+
+        .callout-info {
+            background-color: #f0fdf4;
+            border-color: #16a34a;
+            color: #14532d;
+        }
+
+        .callout-primary {
+            background-color: #eff6ff;
+            border-color: #2563eb;
+            color: #1e3a8a;
+        }
+
+        .callout-warning {
+            background-color: #fefce8;
+            border-color: #ca8a04;
+            color: #713f12;
+        }
+
+        /* Tabelas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 9.5pt;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            padding: 9px 12px;
+            border: 1px solid #cbd5e1;
+            text-align: left;
+        }
+
+        th {
+            background: #003b70;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* Código */
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 14px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 8.5pt;
+            overflow-x: auto;
+            margin: 14px 0;
+            border: 1px solid #334155;
+            page-break-inside: avoid;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 9pt;
+            border: 1px solid #e2e8f0;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-purple { background: #f3e8ff; color: #6b21a8; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+
+        .diagram-container {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 8.5pt;
+            line-height: 1.4;
+            white-space: pre;
+            color: #0f172a;
+            margin: 16px 0;
+            page-break-inside: avoid;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            page-break-inside: avoid;
+        }
+
+        .summary-card h4 {
+            margin: 0 0 6px 0;
+            color: #003b70;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CAPA -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <span class="cover-badge">Engenharia de Software & Arquitetura</span>
+            <h1 class="cover-title">Manual de Engenharia e Arquitetura de Software</h1>
+            <p class="cover-subtitle">Portal Gerencial de Indicadores — Farmácias Conviva</p>
+        </div>
+
+        <div class="cover-body">
+            <div class="cover-desc">
+                <strong>Guia Técnico & Estudo de Caso de Engenharia:</strong><br>
+                Este documento apresenta a arquitetura detalhada, decisões de design, padrões de projeto (Design Patterns), estrutura de dados em nuvem e estratégias de alta performance implementadas no Portal de Acompanhamento Semanal e Gestão de Demandas.
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <span><strong>Autor:</strong> Equipe de Engenharia & Operações</span>
+            <span><strong>Ambiente:</strong> JAMstack / BaaS Supabase PostgreSQL</span>
+            <span><strong>Versão:</strong> 3.0 (2026)</span>
+        </div>
+    </div>
+
+    <!-- SUMÁRIO -->
+    <div class="page-break"></div>
+    <h1>📖 Sumário Executivo</h1>
+    <table style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th style="width: 15%;">Seção</th>
+                <th>Tópico</th>
+                <th style="width: 40%;">Conceitos de Engenharia Abordados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1</strong></td>
+                <td>Visão Geral & Estilo Arquitetural</td>
+                <td>JAMstack, Serverless BaaS, MPA vs SPA, Desempenho</td>
+            </tr>
+            <tr>
+                <td><strong>2</strong></td>
+                <td>Árvore de Diretórios e Componentização</td>
+                <td>Separação de Responsabilidades (SoC), Clean Architecture</td>
+            </tr>
+            <tr>
+                <td><strong>3</strong></td>
+                <td>Padrões de Projeto (Design Patterns)</td>
+                <td>Observer Pattern, Singleton, Adapter/Presenter, RBAC</td>
+            </tr>
+            <tr>
+                <td><strong>4</strong></td>
+                <td>Modelagem de Dados & PostgreSQL</td>
+                <td>Relacionamentos, Índices, RLS Security, Free Tier Optimization</td>
+            </tr>
+            <tr>
+                <td><strong>5</strong></td>
+                <td>Motor de Diagnóstico & Regras de Negócio</td>
+                <td>Avaliação Multicritério, Comparador Histórico, Transições</td>
+            </tr>
+            <tr>
+                <td><strong>6</strong></td>
+                <td>Qualidade, Segurança e Confiabilidade</td>
+                <td>Cache-Busting, Defesa contra XSS, Tolerância a Falhas</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-primary">
+        <strong>💡 Objetivo Pedagógico:</strong> Este material foi estruturado para servir de referência acadêmica e profissional, demonstrando como princípios teóricos de Engenharia de Software (SOLID, DRY, Clean Code) são aplicados em um software corporativo real.
+    </div>
+
+    <!-- SEÇÃO 1 -->
+    <div class="page-break"></div>
+    <h1>1. Visão Geral e Estilo Arquitetural</h1>
+
+    <p>O Portal de Indicadores foi construído sob o paradigma moderno da <strong>JAMstack (JavaScript, APIs, Markup)</strong>, combinado com uma arquitetura <strong>Multi-Page Application (MPA) Componentizada</strong>.</p>
+
+    <div class="diagram-container">
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            NAVEGADOR CLIENTE                                │
+│                                                                             │
+│  [index.html]         [demandas.html]       [graficos.html]   [painel.html] │
+│       │                      │                     │                │       │
+│  [main.js]            [demandas.js]         [graficos.js]           │       │
+│       │                      │                     │                │       │
+│  [Observer / Componentes]    │                     │                │       │
+│       │                      │                     │                │       │
+│       └──────────────────────┴─────────────────────┴────────────────┘       │
+│                                      │                                      │
+│                                      ▼ (HTTPS / WSS Realtime)               │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    BACKEND AS A SERVICE (SUPABASE CLOUD)                    │
+│                                                                             │
+│  ┌───────────────────────┐  ┌──────────────────────┐  ┌──────────────────┐  │
+│  │   PostgREST API Engine│  │  Auth & JWT Security │  │ Realtime Engine  │  │
+│  └───────────┬───────────┘  └──────────┬───────────┘  └────────┬─────────┘  │
+│              └─────────────────────────┼───────────────────────┘            │
+│                                        ▼                                    │
+│                       BANCO DE DADOS POSTGRESQL 15                          │
+│     (dados_lojas, tabela_completa, lojas_ferramenta, demandas, gestores)    │
+└─────────────────────────────────────────────────────────────────────────────┘
+    </div>
+
+    <h2>Por que não usar um Framework Pesado (ex: React, Angular)?</h2>
+    <p>Em projetos de inteligência operacional com tabelas densas e leitura de alta frequência, a escolha de <strong>JavaScript Vanilla ES6+</strong> oferece vantagens críticas:</p>
+    <ul>
+        <li><strong>Desempenho Extremo (Zero Overhead):</strong> Sem Virtual DOM consumindo CPU/RAM, o navegador renderiza as matrizes de dados diretamente no DOM nativo.</li>
+        <li><strong>Carregamento Instantâneo:</strong> O tamanho total dos arquivos transferidos é inferior a 150 KB (contra mais de 1.5 MB de bundles React/Angular).</li>
+        <li><strong>Longevidade e Manutenibilidade:</strong> Sem dependências que sofrem depreciação constante de versões (zero risco de quebra por updates de bibliotecas terceiras).</li>
+    </ul>
+
+    <!-- SEÇÃO 2 -->
+    <div class="page-break"></div>
+    <h1>2. Árvore de Diretórios e Separação de Camadas</h1>
+
+    <p>O projeto segue o princípio de <strong>Separação de Responsabilidades (Separation of Concerns - SoC)</strong>, onde cada pasta possui um papel estrito:</p>
+
+    <div class="summary-card">
+        <h4>🎨 1. Camada de Estilos (<code>css/</code>)</h4>
+        <p><strong><code>css/globais/</code>:</strong> Contém o Design System central (<code>variaveis.css</code> define a paleta corporativa Conviva, tipografia e sombras; <code>base.css</code> aplica reset e scrollbars; <code>layout.css</code> gerencia o grid principal).<br>
+        <strong><code>css/componentes/</code>:</strong> Estilos atômicos e isolados de cada tabela, header, filtros, diagnóstico e modais.<br>
+        <strong><code>css/paginas/</code>:</strong> Estilos específicos das rotas de entrada (painel, login, gráficos, demandas).</p>
+    </div>
+
+    <div class="summary-card">
+        <h4>🧠 2. Camada de Infraestrutura e Serviços (<code>js/servicos/</code>)</h4>
+        <p><strong><code>supabaseClient.js</code>:</strong> Ponto único de comunicação com o Supabase. Garante reuso de conexão.<br>
+        <strong><code>FiltroObserver.js</code>:</strong> Barramento de eventos que sincroniza os filtros com as tabelas.</p>
+    </div>
+
+    <div class="summary-card">
+        <h4>⚙️ 3. Camada de Domínio e Componentes (<code>js/componentes/</code>)</h4>
+        <p><strong><code>tabela-principal.js</code>:</strong> Monta a matriz retroativa de 5 semanas da filial.<br>
+        <strong><code>tabela-media.js</code>:</strong> Processa o cálculo cruzado de média da classe com segmentação por ferramenta (<em>Analysis</em> vs <em>Pricing</em>).<br>
+        <strong><code>diagnostico.js</code>:</strong> Motor de inteligência operacional que compara KPIs e gera os pontos fortes e de atenção.<br>
+        <strong><code>demandas.js</code>:</strong> Módulo CRUD com controle de acesso granular baseado em autor e perfil de gestor.</p>
+    </div>
+
+    <!-- SEÇÃO 3 -->
+    <div class="page-break"></div>
+    <h1>3. Padrões de Projeto (Design Patterns) na Prática</h1>
+
+    <h2>A. Observer Pattern (Padrão Observador)</h2>
+    <p>O <strong>Observer</strong> resolve o problema de comunicação entre componentes desconectados. Quando o usuário troca a loja ou semana na barra de filtros, não chamamos cada tabela manualmente; em vez disso, o <code>filtroObserver</code> notifica todos os ouvintes inscritos:</p>
+
+    <pre><code>// js/servicos/FiltroObserver.js
+class FiltroObserver {
+    constructor() {
+        this.ouvintes = [];
+    }
+
+    inscrever(funcao) {
+        this.ouvintes.push(funcao);
+    }
+
+    notificar(dados) {
+        this.ouvintes.forEach(funcao => funcao(dados));
+    }
+}
+
+export const filtroObserver = new FiltroObserver();</code></pre>
+
+    <pre><code>// main.js - Inscrição Desacoplada dos Componentes
+filtroObserver.inscrever((dados) => {
+    preencherTabelaPrincipal(supabase, dados.filial, dados.periodo);
+});
+
+filtroObserver.inscrever((dados) => {
+    renderizarDiagnostico(supabase, dados.filial, dados.periodo);
+});</code></pre>
+
+    <h2>B. Singleton Pattern (Instância Única)</h2>
+    <p>O <strong>Singleton</strong> assegura que apenas um objeto do cliente Supabase exista durante toda a execução da aplicação, evitando o esgotamento de conexões no plano gratuito:</p>
+
+    <pre><code>// js/servicos/supabaseClient.js
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+const supabaseUrl = 'https://zhfisczfrmhxeegcvvto.supabase.co';
+const supabaseKey = '...';
+
+// Exporta uma única instância constante compartilhada
+export const supabase = createClient(supabaseUrl, supabaseKey);</code></pre>
+
+    <h2>C. Role-Based Access Control (RBAC) em Camada de Aplicação</h2>
+    <p>Em <code>demandas.js</code>, implementamos uma checagem de autorização em dois níveis (Front-end e Banco):</p>
+    <ul>
+        <li><strong>Autor da Demanda:</strong> <code>demanda.analista === usuarioLogado</code> &rarr; Permite Editar, Concluir e Excluir.</li>
+        <li><strong>Administrador Geral:</strong> Presente na tabela <code>gestores</code> &rarr; Permissão irrestrita sobre todas as demandas.</li>
+        <li><strong>Terceiros:</strong> Exibição do badge <code>🔒 Somente Leitura</code> e bloqueio de cliques.</li>
+    </ul>
+
+    <!-- SEÇÃO 4 -->
+    <div class="page-break"></div>
+    <h1>4. Modelagem de Dados & Otimização no PostgreSQL</h1>
+
+    <p>As tabelas foram modeladas para garantir integridade e leituras pontuais rápidas:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Tabela</th>
+                <th>Chaves Principais</th>
+                <th>Finalidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>dados_lojas</code></td>
+                <td><code>filial</code>, <code>data_final</code></td>
+                <td>Armazena os indicadores semanais (Venda Líquida, Qtd Clientes, Ticket, CMV, Falta, Desconto).</td>
+            </tr>
+            <tr>
+                <td><code>lojas_ferramenta_desconto</code></td>
+                <td><code>loja</code></td>
+                <td>Mapeia qual ferramenta de desconto (<code>ANALYSIS</code> ou <code>PRICING</code>) a loja opera.</td>
+            </tr>
+            <tr>
+                <td><code>tabela_completa</code></td>
+                <td><code>filial</code>, <code>status</code>, <code>data_final</code></td>
+                <td>Histórico geral da rede usado para calcular a média de desconto entre lojas da mesma classe e ferramenta.</td>
+            </tr>
+            <tr>
+                <td><code>meta_cluster</code></td>
+                <td><code>cluster</code></td>
+                <td>Metas ideais de mercado (CMV <= 63%, Desconto <= 30%, Falta <= 9%, Ticket >= R$ 50,00).</td>
+            </tr>
+            <tr>
+                <td><code>demandas</code></td>
+                <td><code>id</code>, <code>loja</code>, <code>analista</code></td>
+                <td>Gestão de planos de ação, prazos, prioridade e status de conclusão.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-info">
+        <strong>⚡ Otimização Free Tier:</strong> As consultas utilizam projeções restritas, ordenação indexada por <code>data_final DESC</code> e limites de paginação (<code>.limit()</code>), mantendo o consumo de banda mensal abaixo de 5% da cota gratuita.
+    </div>
+
+    <!-- SEÇÃO 5 -->
+    <div class="page-break"></div>
+    <h1>5. Motor do Diagnóstico Semanal (Inteligência de Negócios)</h1>
+
+    <p>O módulo <code>diagnostico.js</code> processa regras de negócio no próprio navegador do cliente:</p>
+
+    <div class="diagram-container">
+[Entrada: Loja + Semana Atual] ──► [Busca 5 Semanas Retroativas + Histórico]
+                                                  │
+                                                  ▼
+                                   [Localiza Mesma Semana do Mês Anterior]
+                                   (Calcula ~28 dias antes no histórico)
+                                                  │
+                                                  ▼
+                                   [Avaliação Multicritério de 10 KPIs]
+                                                  │
+                ┌─────────────────────────────────┴─────────────────────────────────┐
+                ▼                                                                   ▼
+      [Indicador Melhorou / Meta OK]                                  [Indicador Recuou / Fora da Meta]
+                │                                                                   │
+                ▼                                                                   ▼
+    🟢 PONTOS FORTES DA SEMANA                                          🔴 PONTOS DE ATENÇÃO & DESVIOS
+    (Cards com Delta % e Nominais)                                     (Cards com Desvios e Alertas)
+    </div>
+
+    <h3>Os 10 KPIs Monitorados:</h3>
+    <ol>
+        <li><strong>Venda Líquida:</strong> Faturamento e crescimento percentual vs período comparado.</li>
+        <li><strong>Quantidade de Clientes:</strong> Atendimentos e variação nominal de fluxo.</li>
+        <li><strong>Ticket Médio:</strong> Gasto médio por atendimento (Meta: &ge; R$ 50,00).</li>
+        <li><strong>Itens por Cliente:</strong> Cesta média de produtos (Meta: &ge; 2,50).</li>
+        <li><strong>CMV (Custo da Mercadoria):</strong> Margem e custo dos produtos (Teto: &le; 63,0%).</li>
+        <li><strong>Desconto:</strong> Concessão de desconto comercial (Teto: &le; 30,0%).</li>
+        <li><strong>Falta de Produtos (Ruptura):</strong> Nível de desabastecimento em loja (Meta: &le; 9,0%).</li>
+        <li><strong>Aproveitamento Promocional:</strong> Adesão aos encartes e ofertas (Meta: &ge; 60,0%).</li>
+        <li><strong>Cobertura de Estoque:</strong> Dias de estoque disponível (Calibragem: 45 a 60 dias).</li>
+        <li><strong>EAS (Salão de Vendas):</strong> Índice de eficiência visual e operacional (Meta: &le; 20,0%).</li>
+    </ol>
+
+    <!-- SEÇÃO 6 -->
+    <div class="page-break"></div>
+    <h1>6. Confiabilidade e Melhores Práticas de Engenharia</h1>
+
+    <h2>A. Cache-Busting Contínuo (<code>?v=XX</code>)</h2>
+    <p>Navegadores realizam cache agressivo de arquivos JavaScript e CSS. Para garantir que todos os colaboradores recebam as atualizações sem precisar limpar o histórico, aplicamos versões dinâmicas em todas as importações:</p>
+    <pre><code>&lt;script type="module" src="main.js?v=85"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="css/componentes/diagnostico.css?v=61"&gt;</code></pre>
+
+    <h2>B. Código Defensivo e Tolerância a Falhas</h2>
+    <ul>
+        <li><strong>Optional Chaining (<code>?.</code>):</strong> Evita erros de <code>TypeError: Cannot read property of undefined</code> em elementos ausentes.</li>
+        <li><strong>Operadores de Coalescência Nula (<code>|| '-'</code>):</strong> Garante que dados nulos do banco não quebrem as tabelas.</li>
+        <li><strong>Sanitização e Conversão Numérica (<code>normalizarPercentual</code>):</strong> Trata automaticamente números salvos como <code>0.25</code> ou <code>25%</code>.</li>
+    </ul>
+
+    <div class="callout callout-info" style="margin-top: 30px;">
+        <strong>🎓 Conclusão para o Estudante de Engenharia:</strong><br>
+        A força deste sistema reside na sua arquitetura limpa: componentes altamente coesos, desacoplados via Observer, banco relacional eficiente e uma interface que entrega alto valor de negócio sem desperdício de recursos computacionais.
+    </div>
+
+</body>
+</html>

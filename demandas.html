@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Gerenciador de Demandas - Conviva</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/globais/variaveis.css?v=15">
+    <link rel="stylesheet" href="css/globais/base.css?v=15">
+    <link rel="stylesheet" href="css/globais/layout.css?v=15">
+
+    <link rel="stylesheet" href="css/componentes/header/header.css?v=50">
+    <link rel="stylesheet" href="css/componentes/filtros/filtros.css?v=50">
+    <link rel="stylesheet" href="css/paginas/demandas.css?v=50">
+
+    <!-- Biblioteca SheetJS para Exportação Excel Leve -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+    <header class="cabecalho-dashboard">
+        <div class="cabecalho_container">
+            <div class="report-title-container">
+                <img src="imagens/logo-farmacias-conviva.png" alt="Logo Conviva" class="logo-conviva">
+                <h1 class="titulo_pagina">Gerenciador de Demandas</h1>
+                <span id="badge-perfil-usuario" class="badge-perfil-tag" style="display: none;"></span>
+            </div>
+
+            <div class="filtros-demandas-wrapper">
+
+                <a href="painel.html" class="btn-header-voltar">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
+
+                <!-- Busca Rápida de Texto -->
+                <div class="search-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="campo-busca-rapida" class="search-input"
+                        placeholder="Buscar por loja, texto...">
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtro-loja" class="filter-label"><i class="fas fa-store"></i> Filial:</label>
+                    <select id="filtro-loja" class="filter-select">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtro-ferramenta" class="filter-label"><i class="fas fa-tools"></i> Ferramenta:</label>
+                    <select id="filtro-ferramenta" class="filter-select">
+                        <option value="">Todas</option>
+                        <option value="ERP">ERP</option>
+                        <option value="APP CONVIVA">APP CONVIVA</option>
+                        <option value="PEC">PEC</option>
+                        <option value="PBM">PBM</option>
+                        <option value="GC">GC</option>
+                        <option value="FIDELIZA">FIDELIZA</option>
+                        <option value="BÚSSOLA">BÚSSOLA</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtro-prioridade" class="filter-label"><i class="fas fa-flag"></i> Prioridade:</label>
+                    <select id="filtro-prioridade" class="filter-select">
+                        <option value="">Todas</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Média">Média</option>
+                        <option value="Baixa">Baixa</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtro-responsavel" class="filter-label"><i class="fas fa-user-tag"></i> Resp:</label>
+                    <select id="filtro-responsavel" class="filter-select">
+                        <option value="">Todos</option>
+                        <option value="Operações">Operações</option>
+                        <option value="Associado">Associado</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtro-criador" class="filter-label"><i class="fas fa-user-circle"></i> Criado
+                        por:</label>
+                    <select id="filtro-criador" class="filter-select">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtro-status" class="filter-label"><i class="fas fa-tasks"></i> Status:</label>
+                    <select id="filtro-status" class="filter-select">
+                        <option value="">Todos</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="concluido">Concluído</option>
+                    </select>
+                </div>
+
+                <button id="btn-exportar-excel" class="btn-exportar-excel" title="Exportar dados filtrados para Excel">
+                    <i class="fas fa-file-excel"></i> Exportar
+                </button>
+
+                <button id="btn-abrir-modal-demanda" class="btn-nova-demanda-topo">
+                    <i class="fas fa-plus"></i> Nova Demanda
+                </button>
+
+                <button id="btn-sair" class="btn-sair-header" title="Sair do sistema">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main demandas-main">
+
+        <!-- Contadores Resumo -->
+        <div class="contadores-grid">
+            <div class="contador-card contador-total">
+                <div class="contador-icone">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div class="contador-info">
+                    <span class="contador-numero" id="contador-total">0</span>
+                    <span class="contador-label">Total</span>
+                </div>
+            </div>
+            <div class="contador-card contador-pendentes">
+                <div class="contador-icone">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="contador-info">
+                    <span class="contador-numero" id="contador-pendentes">0</span>
+                    <span class="contador-label">Pendentes</span>
+                </div>
+            </div>
+            <div class="contador-card contador-concluidas">
+                <div class="contador-icone">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="contador-info">
+                    <span class="contador-numero" id="contador-concluidas">0</span>
+                    <span class="contador-label">Concluídas</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Demandas -->
+        <div class="tabela-container tabela-demandas-container">
+            <table class="tabela-acompanhamento tabela-demandas">
+                <thead>
+                    <tr>
+                        <th scope="col" id="th-ordenar-data" class="th-ordenavel"
+                            title="Clique para alternar a ordem das datas">
+                            <div class="th-sort-wrapper">
+                                <span>DATA</span>
+                                <i id="icone-ordem-data" class="fas fa-sort-numeric-down"></i>
+                            </div>
+                        </th>
+                        <th scope="col">LOJA</th>
+                        <th scope="col">FERRAMENTA</th>
+                        <th scope="col">PRIORIDADE</th>
+                        <th scope="col">DESCRIÇÃO</th>
+                        <th scope="col">RESPONSÁVEL</th>
+                        <th scope="col">PRAZO</th>
+                        <th scope="col">CRIADO POR</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col" style="text-align: center;">AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela-demandas">
+                </tbody>
+            </table>
+            <p id="msg-demandas-pagina-vazia" class="msg-tabela-vazia-demandas">
+                <i class="fas fa-search"
+                    style="font-size: 2rem; color: #cbd5e1; margin-bottom: 12px; display: block;"></i>
+                Nenhuma demanda encontrada para os filtros selecionados.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- MODAL DE CADASTRO / EDIÇÃO DE DEMANDA -->
+    <div id="modal-cadastro-demanda" class="modal-overlay" style="display: none;">
+        <div class="modal-conteudo modal-demanda-conteudo">
+            <input type="hidden" id="edit-demanda-id" value="">
+
+            <div class="modal-cabecalho">
+                <h2 id="modal-demanda-titulo"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Cadastrar
+                    Nova Demanda</h2>
+                <button id="btn-fechar-modal-demanda" class="btn-fechar">&times;</button>
+            </div>
+
+            <div class="modal-corpo modal-demanda-corpo">
+                <div class="demanda-modal-grid">
+                    <div class="campo">
+                        <label for="cad-demanda-loja"><i class="fas fa-store"></i> Filial / Loja *</label>
+                        <select id="cad-demanda-loja" class="input-moderno">
+                            <option value="">Selecione a loja...</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cad-demanda-ferramenta"><i class="fas fa-tools"></i> Ferramenta *</label>
+                        <select id="cad-demanda-ferramenta" class="input-moderno">
+                            <option value="">Selecione a ferramenta...</option>
+                            <option value="ERP">ERP</option>
+                            <option value="APP CONVIVA">APP CONVIVA</option>
+                            <option value="PEC">PEC</option>
+                            <option value="PBM">PBM</option>
+                            <option value="GC">GC</option>
+                            <option value="FIDELIZA">FIDELIZA</option>
+                            <option value="BÚSSOLA">BÚSSOLA</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cad-demanda-prioridade"><i class="fas fa-flag"></i> Prioridade *</label>
+                        <select id="cad-demanda-prioridade" class="input-moderno">
+                            <option value="Média">Média (Padrão)</option>
+                            <option value="Alta">Alta (Urgente)</option>
+                            <option value="Baixa">Baixa</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cad-demanda-responsavel"><i class="fas fa-user-tag"></i> Responsável *</label>
+                        <select id="cad-demanda-responsavel" class="input-moderno">
+                            <option value="">Selecione o responsável...</option>
+                            <option value="Operações">Operações</option>
+                            <option value="Associado">Associado</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cad-demanda-data"><i class="fas fa-calendar-alt"></i> Data de Registro</label>
+                        <input type="date" id="cad-demanda-data" class="input-moderno">
+                    </div>
+
+                    <div class="campo">
+                        <label for="cad-demanda-prazo"><i class="fas fa-calendar-check"></i> Prazo de Resolução </label>
+                        <input type="date" id="cad-demanda-prazo" class="input-moderno">
+                    </div>
+
+                    <div class="campo campo-full">
+                        <label for="cad-demanda-analista"><i class="fas fa-user-check"></i> Criado por (Usuário
+                            Logado)</label>
+                        <input type="text" id="cad-demanda-analista" class="input-moderno input-travado" readonly
+                            title="Preenchido automaticamente com seu login">
+                    </div>
+
+                    <div class="campo campo-full">
+                        <label for="cad-demanda-descricao"><i class="fas fa-align-left"></i> Descrição Detalhada da
+                            Demanda *</label>
+                        <textarea id="cad-demanda-descricao" rows="4" class="input-moderno"
+                            placeholder="Descreva claramente o problema, ação necessária, prazos ou detalhes operacionais..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-rodape modal-demanda-rodape">
+                <button type="button" id="btn-cancelar-demanda" class="btn-cancelar">Cancelar</button>
+                <button type="button" id="btn-salvar-nova-demanda" class="btn-salvar">
+                    <i class="fas fa-check"></i> <span id="btn-salvar-texto">Salvar Demanda</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/componentes/demandas.js?v=53"></script>
+</body>
+
+</html>

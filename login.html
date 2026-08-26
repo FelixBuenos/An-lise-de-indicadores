@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portal Gerencial</title>
+
+    <link rel="stylesheet" href="css/globais/variaveis.css">
+    <link rel="stylesheet" href="css/globais/base.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <img src="imagens/logo-farmacias-conviva.png" alt="Logo Conviva" class="logo-login">
+
+            <h2 class="titulo-login">Portal de Indicadores</h2>
+            <p class="subtitulo-login">Faça login para acessar os dados</p>
+
+            <form id="form-login">
+                <div class="input-group">
+                    <label for="email">E-mail Corporativo</label>
+                    <input type="email" id="email" required placeholder="seu.nome@conviva.com.br">
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" id="btn-entrar" class="btn-primary btn-full">Entrar no Sistema</button>
+
+                <div id="mensagem-erro" class="mensagem-erro" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+.tabela-principal .tabela-acompanhamento thead th {
+    background: var(--primary-azul-gradient);
+    color: #fff;
+    padding: 14px 14px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.tabela-principal .coluna-fixa {
+    font-weight: 500;
+    background: var(--primary-azul-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-align: center !important;
+    border-right: 2px solid #e2e8f0 !important;
+    position: sticky;
+    left: 0;
+    font-size: 0.95rem;
+    background-color: #f8fafc; 
+}
+
+.tabela-principal tbody tr:hover {
+    background: linear-gradient(135deg, #eef6ff 0%, #e8f2fc 100%);
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0, 74, 124, 0.1);
+    z-index: 1;
+}
+
+.tabela-principal tbody tr:hover td:first-child {
+    background: linear-gradient(135deg, #eef6ff 0%, #e8f2fc 100%);
+}
+
+/* Indicador da Semana Atual */
+.tabela-principal th:nth-child(5)::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: #60a5fa;
+    height: 3px;
+}
+
+.tabela-principal tbody td:nth-child(5) {
+    font-weight: 700;
+    color: #0284c7;
+    border-left: 1px solid #cbd5e1;
+    border-right: 1px solid #cbd5e1;
+}
+
+.tabela-principal tbody tr:hover td:nth-child(5) {
+    background-color: rgba(56, 189, 248, 0.08);
+    color: #0369a1;
+}
