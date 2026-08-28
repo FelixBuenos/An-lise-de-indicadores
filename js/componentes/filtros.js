@@ -446,6 +446,7 @@ export async function inicializarFiltros(supabase) {
                 trMeta.innerHTML = `
                     <td class="coluna-fixa" style="font-weight: 700; color: #0f172a;">Meta Ideal</td>
                     <td style="font-weight: 700;">-</td>
+                    <td style="font-weight: 700;">-</td>
                     <td style="font-weight: 700;">3</td>
                     <td style="font-weight: 700;">&gt; 60%</td>
                     <td style="font-weight: 700;">&gt; R$ 50,00</td>
@@ -454,7 +455,6 @@ export async function inicializarFiltros(supabase) {
                     <td style="font-weight: 700;">45 a 60</td>
                     <td style="font-weight: 700;">&lt; 20</td>
                     <td style="font-weight: 700;">&lt; 9%</td>
-                    <td style="font-weight: 700;">-</td>
                 `;
                 tbodyMedia.appendChild(trMeta);
             }

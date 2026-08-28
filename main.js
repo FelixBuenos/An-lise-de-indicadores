@@ -4,16 +4,17 @@
 // 1. TODOS OS IMPORTS NO TOPO DO ARQUIVO
 // ==========================================
 import { supabase } from './js/servicos/supabaseClient.js';
-import { inicializarFiltros } from './js/componentes/filtros.js?v=75';
-import { inicializarDestaqueInterativo } from './js/componentes/interacoes.js';
+import { inicializarFiltros } from './js/componentes/filtros.js?v=999';
+import { inicializarDestaqueInterativo } from './js/componentes/interacoes.js?v=999';
 import { inicializarExportacaoPDF } from './js/componentes/exportar.js'; 
-import { inicializarModalAvaliacao, carregarHistorico } from './js/componentes/avaliacao.js?v=75';
+import { inicializarModalAvaliacao, carregarHistorico } from './js/componentes/avaliacao.js?v=999';
 
 import { filtroObserver } from './js/servicos/FiltroObserver.js';
-import { preencherTabelaChecklist } from './js/componentes/tabela-checklist.js?v=85';
-import { preencherTabelaPrincipal } from './js/componentes/tabela-principal.js?v=85';
-import { preencherTabelaMedia } from './js/componentes/tabela-media.js?v=85';
-import { renderizarDiagnostico } from './js/componentes/diagnostico.js?v=85';
+import { preencherTabelaChecklist } from './js/componentes/tabela-checklist.js?v=999';
+import { preencherTabelaPrincipal } from './js/componentes/tabela-principal.js?v=999';
+import { preencherTabelaMedia } from './js/componentes/tabela-media.js?v=1002';
+import { renderizarDiagnostico } from './js/componentes/diagnostico.js?v=999';
+import { inicializarAppLauncher } from './js/componentes/appLauncher.js?v=999';
 
 
 
@@ -164,6 +165,9 @@ async function iniciarSistema() {
 
     // Inicializa a função do botão de exportar para PDF
     inicializarExportacaoPDF();
+    
+    // Inicializa o menu flutuante de soluções
+    inicializarAppLauncher();
     
     // ---------------------------------------------------------
     // OS OUVINTES (Inscrevendo as tabelas no Observer)

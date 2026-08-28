@@ -1,0 +1,208 @@
+/* css/componentes/appLauncher.css */
+
+.app-launcher-container {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    z-index: 9999 !important;
+}
+
+/* Botão de 9 Pontos no Cabeçalho */
+.btn-app-launcher {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.15rem;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+}
+
+.btn-app-launcher:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-app-launcher.ativo {
+    background: #ffffff;
+    color: #003b70;
+    border-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Flutuante Suspenso (Popover) */
+.app-launcher-menu {
+    position: absolute !important;
+    top: calc(100% + 12px) !important;
+    right: 0 !important;
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 16px 40px -6px rgba(0, 20, 50, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+    width: 440px !important;
+    max-width: calc(100vw - 32px) !important;
+    z-index: 99999 !important;
+    padding: 20px !important;
+    display: block !important;
+    transform-origin: top right;
+    animation: launcherFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.app-launcher-menu.hidden {
+    display: none !important;
+}
+
+@keyframes launcherFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Cabeçalho do Card */
+.app-launcher-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.app-launcher-header h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #0f172a;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.app-launcher-loading {
+    padding: 24px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Grid de Soluções */
+.app-launcher-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 2px;
+}
+
+/* Scrollbar Bonita */
+.app-launcher-grid::-webkit-scrollbar {
+    width: 5px;
+}
+.app-launcher-grid::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+/* Item individual da solução */
+.app-launcher-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    color: #1e293b !important;
+    padding: 10px 12px !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    border: 1px solid #f1f5f9 !important;
+    transition: all 0.2s ease !important;
+    gap: 12px !important;
+}
+
+.app-launcher-item:hover {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Ícone / Logo */
+.app-launcher-icon-wrapper {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    padding: 6px !important;
+    box-sizing: border-box !important;
+}
+
+.app-launcher-icon-wrapper img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.app-launcher-icon-wrapper i {
+    font-size: 1.25rem;
+    color: #0055a5;
+}
+
+.app-launcher-fallback-badge {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0055a5 0%, #0284c7 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.app-launcher-item span {
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.app-launcher-item:hover span {
+    color: #0055a5 !important;
+}
+
+@media (max-width: 500px) {
+    .app-launcher-menu {
+        width: calc(100vw - 24px) !important;
+        right: -10px !important;
+    }
+    .app-launcher-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

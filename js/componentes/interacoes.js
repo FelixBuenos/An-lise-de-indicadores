@@ -6,15 +6,17 @@ export function inicializarDestaqueInterativo() {
 
     const mapaColunas = {
         'venda liquida': 1,
-        'itens por cliente': 2,
-        'aproveitamento': 3,
-        'ticket medio': 4,
-        'cmv': 5,
-        'desconto': 6,
-        'cobertura': 7,
-        'excesso': 8,
-        'falta': 9,
-        'eas': 10
+        'qtd cliente': 2,
+        'qtd clientes': 2,
+        'quantidade de clientes': 2,
+        'itens por cliente': 3,
+        'aproveitamento': 4,
+        'ticket medio': 5,
+        'cmv': 6,
+        'desconto': 7,
+        'cobertura': 8,
+        'excesso': 9,
+        'falta': 10
     };
 
     linhasTabelaAzul.forEach(linha => {

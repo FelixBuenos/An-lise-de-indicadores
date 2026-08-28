@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+    z-index: 1000;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     transition: box-shadow var(--transition), transform var(--transition);

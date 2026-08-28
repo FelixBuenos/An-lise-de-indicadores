@@ -42,6 +42,8 @@ body {
   background: rgba(0, 26, 56, 0.5) !important; /* Vidro fumê ajustado */
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative !important;
+  z-index: 1000 !important;
 }
 
 .cabecalho-dashboard .titulo_pagina {

@@ -83,8 +83,7 @@ export async function preencherTabelaPrincipal(supabase, filialEscolhida, period
         'Desconto': { coluna: 'desconto', tipo: 'percentual_uma_casa' },
         'Cobertura': { coluna: 'cobertura', tipo: 'inteiro_puro' }, 
         'Excesso': { coluna: 'excesso', tipo: 'inteiro_puro' },     
-        'Falta': { coluna: 'falta', tipo: 'percentual_uma_casa' },
-        'EAS': { coluna: 'eas', tipo: 'percentual_uma_casa' }
+        'Falta': { coluna: 'falta', tipo: 'percentual_uma_casa' }
     };
 
     // =========================================================

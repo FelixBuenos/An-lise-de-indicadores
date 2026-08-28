@@ -11,21 +11,22 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="css/globais/variaveis.css?v=5">
-    <link rel="stylesheet" href="css/globais/base.css?v=5">
-    <link rel="stylesheet" href="css/globais/layout.css?v=5">
+    <link rel="stylesheet" href="css/globais/variaveis.css?v=999">
+    <link rel="stylesheet" href="css/globais/base.css?v=999">
+    <link rel="stylesheet" href="css/globais/layout.css?v=999">
 
-    <link rel="stylesheet" href="css/componentes/header/header.css?v=60">
-    <link rel="stylesheet" href="css/componentes/filtros/filtros.css?v=60">
+    <link rel="stylesheet" href="css/componentes/header/header.css?v=999">
+    <link rel="stylesheet" href="css/componentes/appLauncher.css?v=999">
+    <link rel="stylesheet" href="css/componentes/filtros/filtros.css?v=999">
 
-    <link rel="stylesheet" href="css/componentes/tabelas/tabela-base.css?v=60">
-    <link rel="stylesheet" href="css/componentes/tabelas/tabela-dados-lojas.css?v=60">
-    <link rel="stylesheet" href="css/componentes/tabelas/tabela-checklist.css?v=60">
-    <link rel="stylesheet" href="css/componentes/tabelas/tabela-media.css?v=60">
-    <link rel="stylesheet" href="css/componentes/tabelas/tabela-adicional.css?v=60">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-base.css?v=999">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-dados-lojas.css?v=999">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-checklist.css?v=999">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-media.css?v=999">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-adicional.css?v=999">
 
-    <link rel="stylesheet" href="css/componentes/avaliacao.css?v=60">
-    <link rel="stylesheet" href="css/componentes/diagnostico.css?v=61">
+    <link rel="stylesheet" href="css/componentes/avaliacao.css?v=999">
+    <link rel="stylesheet" href="css/componentes/diagnostico.css?v=999">
 </head>
 
 <body>
@@ -91,6 +92,23 @@
                     onclick="window.abrirModalDemanda ? window.abrirModalDemanda() : null" title="Criar Nova Demanda">
                     <i class="fas fa-plus"></i> Nova Demanda
                 </button>
+
+                <!-- App Launcher (Menu de Soluções) -->
+                <div class="app-launcher-container">
+                    <button id="btn-app-launcher" class="btn-app-launcher" title="Nossas Soluções">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <div id="app-launcher-menu" class="app-launcher-menu hidden">
+                        <div class="app-launcher-header">
+                            <h4>Outras soluções</h4>
+                        </div>
+                        <div id="app-launcher-grid" class="app-launcher-grid">
+                            <div class="app-launcher-loading">
+                                <i class="fas fa-spinner fa-spin"></i> Carregando...
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <button id="btn-sair" class="btn-sair-header" title="Sair do sistema">
                     <i class="fas fa-sign-out-alt"></i>
@@ -243,14 +261,6 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td class="coluna-fixa">EAS</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -261,6 +271,7 @@
                     <tr>
                         <th scope="col">MÉTRICA</th>
                         <th scope="col">VENDA LÍQUIDA</th>
+                        <th scope="col">QTD CLIENTE</th>
                         <th scope="col">ITENS/CLIENTE</th>
                         <th scope="col">APROVEITAMENTO</th>
                         <th scope="col">TICKET MÉDIO</th>
@@ -269,7 +280,6 @@
                         <th scope="col">COBERTURA</th>
                         <th scope="col">EXCESSO</th>
                         <th scope="col">FALTA</th>
-                        <th scope="col">EAS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -308,11 +318,20 @@
             <div class="tabela-container tabela-resumo">
                 <table class="tabela-acompanhamento">
                     <thead>
-                        <tr>
-                            <th scope="col">ÁREA</th>
-                            <th scope="col" id="th-mes-anterior">MÊS ANTERIOR</th>
-                            <th scope="col" id="th-nota-loja">NOTA LOJA</th>
-                            <th scope="col">MÉDIA REDE</th>
+                        <tr style="background-color: #1b5e20 !important;">
+                            <th scope="col" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">
+                                ÁREA
+                                <a href="https://app.powerbi.com/links/R_nTGxOHjH?ctid=d9052b1c-fa68-416e-9d0e-3eaa717d2cef&pbi_source=linkShare" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="icone-link-checklist" 
+                                   title="Abrir Checklist Detalhado no Power BI">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </th>
+                            <th scope="col" id="th-mes-anterior" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">MÊS ANTERIOR</th>
+                            <th scope="col" id="th-nota-loja" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">NOTA LOJA</th>
+                            <th scope="col" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">MÉDIA REDE</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -515,8 +534,8 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script type="module" src="main.js?v=85"></script>
-    <script type="module" src="js/componentes/avaliacao.js?v=85"></script>
+    <script type="module" src="main.js?v=1002"></script>
+    <script type="module" src="js/componentes/avaliacao.js?v=999"></script>
 </body>
 
 </html>

@@ -4,20 +4,15 @@
     --primary-azul-gradient: linear-gradient(135deg, #004a7c 0%, #0066a0 100%);
     --primary-vermelho: #9E2B15;
     --primary-vermelho-gradient: linear-gradient(135deg, #9E2B15 0%, #c23b1f 100%);
-    --primary-verde-gradient: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
-    --bg-gradient: linear-gradient(135deg, #1e2022 0%, #0f1011 100%);
+    --primary-verde-gradient: #1b5e20;
+    --primary-verde: #1b5e20;
+    --bg-gradient: linear-gradient(135deg, #e8eef4 0%, #dce5ed 100%);
     --radial-gradient: radial-gradient(circle at center, #c21a1a 0%,#a31111 100%);
-    :root {
-    /* Mantenha as variáveis que você já possui aqui... */
 
     /* Design Tokens específicos para Gráficos */
     --grafico-eficiente: #2ecc71;
     --grafico-critico: #ef4444;
     --grafico-oscilacao: #f59e0b;
-}
-
-    /* Cores de Fundo e Superfície */
-    --bg-gradient: linear-gradient(135deg, #e8eef4 0%, #dce5ed 100%);
     --surface: #ffffff;
 
     /* Elementos de Texto */
