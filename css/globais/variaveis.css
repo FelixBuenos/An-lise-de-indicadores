@@ -1,0 +1,44 @@
+:root {
+    /* Cores Principais (Identidade Visual) */
+    --primary-azul: #004a7c;
+    --primary-azul-gradient: linear-gradient(135deg, #004a7c 0%, #0066a0 100%);
+    --primary-vermelho: #9E2B15;
+    --primary-vermelho-gradient: linear-gradient(135deg, #9E2B15 0%, #c23b1f 100%);
+    --primary-verde-gradient: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+    --bg-gradient: linear-gradient(135deg, #1e2022 0%, #0f1011 100%);
+    --radial-gradient: radial-gradient(circle at center, #c21a1a 0%,#a31111 100%);
+    :root {
+    /* Mantenha as variáveis que você já possui aqui... */
+
+    /* Design Tokens específicos para Gráficos */
+    --grafico-eficiente: #2ecc71;
+    --grafico-critico: #ef4444;
+    --grafico-oscilacao: #f59e0b;
+}
+
+    /* Cores de Fundo e Superfície */
+    --bg-gradient: linear-gradient(135deg, #e8eef4 0%, #dce5ed 100%);
+    --surface: #ffffff;
+
+    /* Elementos de Texto */
+    --text: #1f2a37;
+    --muted: #6b7280;
+
+    /* Bordas */
+    --border: #e5e7eb;
+    --border-glow: rgba(0, 74, 124, 0.2);
+
+    /* Arredondamentos (Border Radius) */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    /* Sombras (Elevação) */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+    /* Transições de Animação */
+    --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}

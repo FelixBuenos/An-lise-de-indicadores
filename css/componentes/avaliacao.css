@@ -1,0 +1,272 @@
+/* css/componentes/avaliacao.css */
+
+/* Fundo escuro que cobre a tela toda */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Modal de Demanda */
+.modal-demanda-conteudo {
+    background: #ffffff;
+    width: 95%;
+    max-width: 680px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cabeçalho do Modal */
+.modal-cabecalho {
+    background: #003b70;
+    color: #ffffff;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-cabecalho h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.btn-fechar {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-fechar:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* Corpo do Modal */
+.modal-demanda-corpo {
+    padding: 24px;
+    background: #ffffff;
+}
+
+.demanda-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-full {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.campo label i {
+    color: #0055a5;
+}
+
+.input-moderno {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-size: 0.95rem;
+    color: #1e293b;
+    transition: all 0.2s ease;
+    outline: none;
+    font-family: inherit;
+}
+
+.input-moderno:focus {
+    background-color: #ffffff;
+    border-color: #0055a5;
+    box-shadow: 0 0 0 3px rgba(0, 85, 165, 0.15);
+}
+
+.input-travado {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    font-weight: 600 !important;
+    cursor: not-allowed !important;
+    border-color: #e2e8f0 !important;
+}
+
+.input-travado:focus {
+    box-shadow: none !important;
+    border-color: #e2e8f0 !important;
+}
+
+textarea.input-moderno {
+    resize: vertical;
+    line-height: 1.45;
+}
+
+/* Rodapé do Modal */
+.modal-demanda-rodape {
+    padding: 16px 24px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancelar {
+    background: #e2e8f0;
+    color: #475569;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.btn-cancelar:hover {
+    background: #cbd5e1;
+    color: #1e293b;
+}
+
+.btn-salvar {
+    background: #10b981;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
+}
+
+.btn-salvar:hover {
+    background: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.35);
+}
+
+/* Tabela de Histórico de Demandas na página de Acompanhamento */
+.container-historico {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.titulo-historico {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #003b70;
+}
+
+#tabela-historico {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+#tabela-historico th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+#tabela-historico td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.88rem;
+    color: #334155;
+    vertical-align: middle;
+}
+
+#tabela-historico tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Botão Nova Demanda no Cabeçalho */
+.btn-nova-demanda-header {
+    background: #10b981;
+    color: #ffffff;
+    border: none;
+    height: 38px;
+    padding: 0 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
+    z-index: 10;
+}
+
+.btn-nova-demanda-header:hover {
+    background: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.35);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .demanda-modal-grid {
+        grid-template-columns: 1fr;
+    }
+}
