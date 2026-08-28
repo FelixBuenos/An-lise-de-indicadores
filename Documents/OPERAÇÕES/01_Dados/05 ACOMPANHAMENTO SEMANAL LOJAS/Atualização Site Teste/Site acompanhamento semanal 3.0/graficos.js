@@ -1,7 +1,7 @@
 // graficos.js
 
 import { supabase } from './js/servicos/supabaseClient.js';
-import { inicializarFiltros } from './js/componentes/filtros.js?v=4';
+import { inicializarFiltros } from './js/componentes/filtros.js';
 import { obterDadosGraficos } from './js/servicos/graficosService.js';
 
 let chartPositivo = null;

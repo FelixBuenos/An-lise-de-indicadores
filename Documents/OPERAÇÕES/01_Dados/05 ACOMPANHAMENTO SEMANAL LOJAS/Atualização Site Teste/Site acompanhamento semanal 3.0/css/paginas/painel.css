@@ -42,6 +42,8 @@ body {
   background: rgba(0, 26, 56, 0.5) !important; /* Vidro fumê ajustado */
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative !important;
+  z-index: 1000 !important;
 }
 
 .cabecalho-dashboard .titulo_pagina {
@@ -84,6 +86,10 @@ body {
   border-top-color: var(--p-accent);
 }
 
+.card-link:nth-child(3) .card-balao {
+  border-top-color: #10b981;
+}
+
 /* ─── Efeitos de Interação (Hover) ────────────────────── */
 .card-link:hover .card-balao {
   transform: translateY(-8px);
@@ -100,6 +106,10 @@ body {
 
 .card-link:nth-child(2) .icone-balao {
   color: var(--p-accent) !important;
+}
+
+.card-link:nth-child(3) .icone-balao {
+  color: #10b981 !important;
 }
 
 .card-link:hover .icone-balao {
@@ -124,6 +134,11 @@ body {
   background: rgba(220, 38, 38, 0.06);
 }
 
+.card-link:nth-child(3) .btn-acessar {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.06);
+}
+
 /* Animação expansiva do botão no hover */
 .card-link:hover .btn-acessar { 
   gap: 14px;
@@ -134,6 +149,10 @@ body {
 }
 .card-link:nth-child(2):hover .btn-acessar {
   background: var(--p-accent);
+  color: #ffffff;
+}
+.card-link:nth-child(3):hover .btn-acessar {
+  background: #10b981;
   color: #ffffff;
 }
 

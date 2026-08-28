@@ -5,13 +5,18 @@ import { filtroObserver } from '../servicos/FiltroObserver.js';
 export async function inicializarFiltros(supabase) {
     const lojaSelect = document.getElementById('select-loja');
     const periodoSelect = document.getElementById('select-periodo');
-    const mesSelect = document.getElementById('select-mes'); // Novo dropdown de Mês
+    const mesSelect = document.getElementById('select-mes');
     const statusSelect = document.getElementById('select-status'); 
     const redeSelect = document.getElementById('select-rede'); 
     const btnFiltrar = document.getElementById('btn-filtrar');
     
     let todasFiliais = []; // Guarda a lista original de todas as filiais
-    let filialParaRede = {}; // Mapeamento de cada filial para a sua Rede atual (mais recente)
+    let filialParaRede = {}; // Mapeamento de cada filial para a sua Rede atual
+
+    // Parâmetros de URL (Deep Linking a partir de Demandas)
+    const urlParams = new URLSearchParams(window.location.search);
+    let urlFilialParam = urlParams.get('filial');
+    let urlDataParam = urlParams.get('data');
 
     function formatarDataBR(dataSql) {
         if (!dataSql) return '';
@@ -19,12 +24,42 @@ export async function inicializarFiltros(supabase) {
         return `${dia}/${mes}/${ano}`;
     }
 
+    function encontrarIndiceLoja(select, termo) {
+        if (!select || !termo) return -1;
+        const termoLimpo = termo.trim().toLowerCase();
+        const termoSemConviva = termoLimpo
+            .replace(/^farm[áa]cias?\s+conviva\s+/i, '')
+            .replace(/^conviva\s+/i, '')
+            .trim();
+
+        // 1. Match exato
+        for (let i = 0; i < select.options.length; i++) {
+            const val = (select.options[i].value || '').trim().toLowerCase();
+            const txt = (select.options[i].text || '').trim().toLowerCase();
+            if (val === termoLimpo || txt === termoLimpo) return i;
+        }
+
+        // 2. Match por cidade/unidade (ex: "Acopiara")
+        if (termoSemConviva) {
+            for (let i = 0; i < select.options.length; i++) {
+                const val = (select.options[i].value || '').trim().toLowerCase();
+                const txt = (select.options[i].text || '').trim().toLowerCase();
+                if (val.includes(termoSemConviva) || txt.includes(termoSemConviva)) return i;
+            }
+        }
+
+        return -1;
+    }
+
+    // ==========================================
+    // CARREGAR ESTRUTURA DE FILTROS
+    // ==========================================
     async function carregarFiltros() {
         const { data, error } = await supabase
             .from('dados_lojas')
             .select('filial, rede, data_inicio, data_final')
             .order('data_final', { ascending: false })
-            .limit(5000); // Carrega todas as semanas sem corte de limites
+            .limit(5000);
 
         if (error) {
             console.error('Erro ao carregar os dados:', error);
@@ -35,8 +70,8 @@ export async function inicializarFiltros(supabase) {
         const semanasUnicas = new Map();
         const redesUnicas = new Set();
         const mapeamentoFilialRedeLocal = {};
-        const mesesUnicos = new Map(); // Chave "YYYY-MM" -> Texto "NomeMês/YYYY"
-        const semanasPorMes = {}; // Chave "YYYY-MM" -> Array de semanas
+        const mesesUnicos = new Map();
+        const semanasPorMes = {};
 
         const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
@@ -44,7 +79,6 @@ export async function inicializarFiltros(supabase) {
             filiaisUnicas.add(linha.filial); 
             if (linha.rede) {
                 redesUnicas.add(linha.rede);
-                // Como está ordenado decrescente por data_final, a primeira vez que vemos a filial é a mais recente
                 if (!mapeamentoFilialRedeLocal[linha.filial]) {
                     mapeamentoFilialRedeLocal[linha.filial] = linha.rede;
                 }
@@ -57,7 +91,6 @@ export async function inicializarFiltros(supabase) {
             
             semanasUnicas.set(valorEscondido, textoVisivel);
 
-            // Classifica a semana em um Mês/Ano baseado na data_final
             if (linha.data_final) {
                 const [ano, mesStr] = linha.data_final.split('-');
                 const chaveMes = `${ano}-${mesStr}`;
@@ -77,7 +110,7 @@ export async function inicializarFiltros(supabase) {
         todasFiliais = Array.from(filiaisUnicas).sort(); 
         filialParaRede = mapeamentoFilialRedeLocal;
         
-        // Popula as Redes (Apenas se o select existir na página)
+        // Popula as Redes
         if (redeSelect) {
             redeSelect.innerHTML = '<option value="">Todas</option>';
             Array.from(redesUnicas).sort().forEach(rede => {
@@ -88,7 +121,7 @@ export async function inicializarFiltros(supabase) {
             });
         }
 
-        // Popula as filiais inicialmente (Apenas se o select existir na página)
+        // Popula as filiais inicialmente
         if (lojaSelect) {
             lojaSelect.innerHTML = '<option value=""></option>'; 
             todasFiliais.forEach(filial => {
@@ -99,7 +132,7 @@ export async function inicializarFiltros(supabase) {
             });
         }
 
-        // Popula os Meses (Apenas se o select existir na página)
+        // Popula os Meses
         if (mesSelect) {
             mesSelect.innerHTML = '<option value="">Todos</option>';
             const chavesMesesOrdenadas = Array.from(mesesUnicos.keys()).sort();
@@ -111,7 +144,7 @@ export async function inicializarFiltros(supabase) {
             });
         }
 
-        // Função interna para atualizar as semanas com base no mês selecionado
+        // Atualizar dropdown de semanas
         function atualizarDropdownSemanas() {
             if (!periodoSelect) return;
 
@@ -119,7 +152,6 @@ export async function inicializarFiltros(supabase) {
             periodoSelect.innerHTML = '';
 
             if (mesEscolhido) {
-                // Filtra as semanas do mês selecionado (mantendo em ordem decrescente - mais recente no topo)
                 const semanasDoMes = semanasPorMes[mesEscolhido] || [];
                 semanasDoMes.forEach(item => {
                     const option = document.createElement('option');
@@ -128,7 +160,6 @@ export async function inicializarFiltros(supabase) {
                     periodoSelect.appendChild(option);
                 });
             } else {
-                // Exibe todas as semanas em ordem decrescente (mais recente no topo)
                 const chavesSemanas = Array.from(semanasUnicas.keys()).sort().reverse();
                 chavesSemanas.forEach(chave => {
                     const option = document.createElement('option');
@@ -138,37 +169,54 @@ export async function inicializarFiltros(supabase) {
                 });
             }
 
-            // Seleciona o item mais recente (que agora é o primeiro na ordem decrescente)
-            if (periodoSelect.options.length > 0) {
+            // Se veio data via URL, seleciona a semana exata da demanda
+            if (urlDataParam && periodoSelect.options.length > 0) {
+                let semanaEncontrada = false;
+                for (let i = 0; i < periodoSelect.options.length; i++) {
+                    const val = periodoSelect.options[i].value;
+                    if (val && val.includes('|')) {
+                        const [dInicio, dFinal] = val.split('|');
+                        if (dInicio <= urlDataParam && urlDataParam <= dFinal) {
+                            periodoSelect.selectedIndex = i;
+                            semanaEncontrada = true;
+                            break;
+                        }
+                    }
+                }
+                if (!semanaEncontrada && periodoSelect.options.length > 0) {
+                    periodoSelect.selectedIndex = 0;
+                }
+            } else if (periodoSelect.options.length > 0) {
                 periodoSelect.selectedIndex = 0;
             }
-
-            // Notifica alteração para os cascatas de filial
-            periodoSelect.dispatchEvent(new Event('change'));
         }
 
         if (mesSelect) {
-            mesSelect.addEventListener('change', atualizarDropdownSemanas);
+            mesSelect.addEventListener('change', async () => {
+                atualizarDropdownSemanas();
+                await atualizarFiltroFiliais();
+            });
         }
 
-        // Popula inicialmente
+        // Popula inicialmente as semanas
         atualizarDropdownSemanas();
+
+        // Popula e filtra filiais de forma assíncrona garantida
+        await atualizarFiltroFiliais(urlFilialParam);
     }
 
     // ==========================================
     // NOVA INTELIGÊNCIA: FILTRO EM CASCATA DE FILIAIS
     // ==========================================
-    async function atualizarFiltroFiliais() {
+    async function atualizarFiltroFiliais(filialPreSelecionar = null) {
         if (!lojaSelect) return;
 
         const semanaEscolhida = periodoSelect ? periodoSelect.value : '';
         const statusEscolhido = statusSelect ? statusSelect.value : '';
         const redeEscolhida = redeSelect ? redeSelect.value : '';
 
-        // Limpa a caixinha de lojas
         lojaSelect.innerHTML = '<option value="">Carregando...</option>';
 
-        // Se o usuário tirou a semana, volta a mostrar todas as lojas (filtrando por rede se escolhida) e para por aqui
         if (!semanaEscolhida) {
             lojaSelect.innerHTML = '<option value=""></option>';
             todasFiliais.forEach(filial => {
@@ -180,12 +228,13 @@ export async function inicializarFiltros(supabase) {
                 option.textContent = filial;
                 lojaSelect.appendChild(option);
             });
+
+            tratarSelecaoFilial(filialPreSelecionar);
             return;
         }
 
         const [dataInicio] = semanaEscolhida.split('|');
 
-        // Vai no banco buscar apenas as lojas que têm dados cadastrados nesta semana
         const { data, error } = await supabase
             .from('tabela_completa')
             .select('filial, status')
@@ -201,10 +250,10 @@ export async function inicializarFiltros(supabase) {
             return;
         }
 
-        let filiaisFiltradas = data;
+        let filiaisFiltradas = data || [];
         if (statusEscolhido) {
-            filiaisFiltradas = data.filter(linha => {
-                const s = linha.status.toLowerCase();
+            filiaisFiltradas = filiaisFiltradas.filter(linha => {
+                const s = (linha.status || '').toLowerCase();
                 if (statusEscolhido === 'critico') return s.includes('crítico') || s.includes('critico');
                 if (statusEscolhido === 'medio') return s.includes('médio') || s.includes('medio');
                 if (statusEscolhido === 'baixo') return s.includes('baixo');
@@ -214,15 +263,24 @@ export async function inicializarFiltros(supabase) {
 
         let filiaisUnicasFiltradas = Array.from(new Set(filiaisFiltradas.map(f => f.filial)));
 
-        // Filtra por Rede se selecionada
         if (redeEscolhida) {
             filiaisUnicasFiltradas = filiaisUnicasFiltradas.filter(filial => filialParaRede[filial] === redeEscolhida);
         }
 
-        // Ordena A-Z
+        // Se veio uma filial por parâmetro (deep link), garante que ela esteja na lista se ainda não estiver
+        const alvoFilial = filialPreSelecionar || urlFilialParam;
+        if (alvoFilial) {
+            const jaTem = filiaisUnicasFiltradas.some(f => f.toLowerCase().includes(alvoFilial.toLowerCase()) || alvoFilial.toLowerCase().includes(f.toLowerCase()));
+            if (!jaTem) {
+                const filialOriginal = todasFiliais.find(f => f.toLowerCase().includes(alvoFilial.toLowerCase()) || alvoFilial.toLowerCase().includes(f.toLowerCase()));
+                if (filialOriginal) {
+                    filiaisUnicasFiltradas.push(filialOriginal);
+                }
+            }
+        }
+
         filiaisUnicasFiltradas.sort();
 
-        // Repopula o Select de Lojas com o resultado final
         lojaSelect.innerHTML = '<option value=""></option>';
         if (filiaisUnicasFiltradas.length === 0) {
             const option = document.createElement('option');
@@ -237,12 +295,34 @@ export async function inicializarFiltros(supabase) {
                 lojaSelect.appendChild(option);
             });
         }
+
+        tratarSelecaoFilial(filialPreSelecionar);
     }
 
-    // Aciona a inteligência toda vez que a Semana, o Status ou a Rede mudarem (Apenas se existirem no HTML)
-    if (periodoSelect) periodoSelect.addEventListener('change', atualizarFiltroFiliais);
-    if (statusSelect) statusSelect.addEventListener('change', atualizarFiltroFiliais);
-    if (redeSelect) redeSelect.addEventListener('change', atualizarFiltroFiliais);
+    function tratarSelecaoFilial(filialAlvo) {
+        const termo = filialAlvo || urlFilialParam;
+        if (!termo || !lojaSelect) return;
+
+        const idx = encontrarIndiceLoja(lojaSelect, termo);
+        if (idx >= 0) {
+            lojaSelect.selectedIndex = idx;
+
+            const filialEscolhida = lojaSelect.value;
+            const semanaEscolhida = periodoSelect ? periodoSelect.value : '';
+
+            if (filialEscolhida && semanaEscolhida) {
+                filtroObserver.notificar({
+                    filial: filialEscolhida,
+                    periodo: semanaEscolhida,
+                    status: statusSelect ? statusSelect.value : ''
+                });
+            }
+        }
+    }
+
+    if (periodoSelect) periodoSelect.addEventListener('change', () => atualizarFiltroFiliais());
+    if (statusSelect) statusSelect.addEventListener('change', () => atualizarFiltroFiliais());
+    if (redeSelect) redeSelect.addEventListener('change', () => atualizarFiltroFiliais());
 
     // ==========================================
     // FUNÇÃO UNIFICADA: NOTA E MÉDIA DO ENCARTE
@@ -315,6 +395,7 @@ export async function inicializarFiltros(supabase) {
                 celulaNota.style.fontWeight = '700'; 
             } else {
                 celulaNota.textContent = '-';
+                celulaMedia.textContent = '-';
                 celulaNota.style.color = '#0f172a';
             }
 
@@ -365,6 +446,7 @@ export async function inicializarFiltros(supabase) {
                 trMeta.innerHTML = `
                     <td class="coluna-fixa" style="font-weight: 700; color: #0f172a;">Meta Ideal</td>
                     <td style="font-weight: 700;">-</td>
+                    <td style="font-weight: 700;">-</td>
                     <td style="font-weight: 700;">3</td>
                     <td style="font-weight: 700;">&gt; 60%</td>
                     <td style="font-weight: 700;">&gt; R$ 50,00</td>
@@ -373,7 +455,6 @@ export async function inicializarFiltros(supabase) {
                     <td style="font-weight: 700;">45 a 60</td>
                     <td style="font-weight: 700;">&lt; 20</td>
                     <td style="font-weight: 700;">&lt; 9%</td>
-                    <td style="font-weight: 700;">-</td>
                 `;
                 tbodyMedia.appendChild(trMeta);
             }
@@ -383,5 +464,5 @@ export async function inicializarFiltros(supabase) {
         }
     });
 
-    carregarFiltros();
+    await carregarFiltros();
 }

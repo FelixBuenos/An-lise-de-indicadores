@@ -4,15 +4,17 @@
 // 1. TODOS OS IMPORTS NO TOPO DO ARQUIVO
 // ==========================================
 import { supabase } from './js/servicos/supabaseClient.js';
-import { inicializarFiltros } from './js/componentes/filtros.js?v=4';
-import { inicializarDestaqueInterativo } from './js/componentes/interacoes.js';
+import { inicializarFiltros } from './js/componentes/filtros.js?v=999';
+import { inicializarDestaqueInterativo } from './js/componentes/interacoes.js?v=999';
 import { inicializarExportacaoPDF } from './js/componentes/exportar.js'; 
-import { inicializarModalAvaliacao, carregarHistorico } from './js/componentes/avaliacao.js';
+import { inicializarModalAvaliacao, carregarHistorico } from './js/componentes/avaliacao.js?v=999';
 
 import { filtroObserver } from './js/servicos/FiltroObserver.js';
-import { preencherTabelaChecklist } from './js/componentes/tabela-checklist.js';
-import { preencherTabelaPrincipal } from './js/componentes/tabela-principal.js';
-import { preencherTabelaMedia } from './js/componentes/tabela-media.js';
+import { preencherTabelaChecklist } from './js/componentes/tabela-checklist.js?v=999';
+import { preencherTabelaPrincipal } from './js/componentes/tabela-principal.js?v=999';
+import { preencherTabelaMedia } from './js/componentes/tabela-media.js?v=1002';
+import { renderizarDiagnostico } from './js/componentes/diagnostico.js?v=999';
+import { inicializarAppLauncher } from './js/componentes/appLauncher.js?v=999';
 
 
 
@@ -152,6 +154,9 @@ async function iniciarSistema() {
         return; 
     }
 
+    // 3. Inicializa o modal de demandas imediatamente
+    inicializarModalAvaliacao(supabase);
+
     // Carrega os filtros buscando as filiais e semanas
     await inicializarFiltros(supabase);
     
@@ -160,14 +165,19 @@ async function iniciarSistema() {
 
     // Inicializa a função do botão de exportar para PDF
     inicializarExportacaoPDF();
-
-    // AJUSTADO: Agora passamos a instância 'supabase' explicitamente para o componente de avaliação
-    inicializarModalAvaliacao(supabase);
+    
+    // Inicializa o menu flutuante de soluções
+    inicializarAppLauncher();
     
     // ---------------------------------------------------------
     // OS OUVINTES (Inscrevendo as tabelas no Observer)
     // ---------------------------------------------------------
     
+    // O Diagnóstico Semanal Inteligente se inscreve para ouvir as mudanças de filtro
+    filtroObserver.inscrever((dados) => {
+        renderizarDiagnostico(supabase, dados.filial, dados.periodo);
+    });
+
     // A Tabela RH se inscreve para ouvir as mudanças de filtro
     filtroObserver.inscrever((dados) => {
         buscarDadosRH(dados.filial, dados.periodo);
@@ -188,13 +198,23 @@ async function iniciarSistema() {
         preencherTabelaMedia(supabase, dados.filial, dados.periodo);
     });
 
+    // O Histórico de Demandas se inscreve para atualizar sempre que mudar de loja
+    filtroObserver.inscrever((dados) => {
+        carregarHistorico(supabase, dados.filial);
+    });
+
     // ---------------------------------------------------------
-    // CARGA INICIAL DO HISTÓRICO (Ao abrir a página)
+    // CARGA INICIAL E MUDANÇA DIRETA DO HISTÓRICO
     // ---------------------------------------------------------
     const selectLojaInicial = document.getElementById('select-loja');
     if (selectLojaInicial) {
-        // Pega a filial padrão selecionada no carregamento inicial da página e renderiza o histórico
+        // Carga inicial
         carregarHistorico(supabase, selectLojaInicial.value);
+
+        // Atualização instantânea ao trocar o dropdown
+        selectLojaInicial.addEventListener('change', () => {
+            carregarHistorico(supabase, selectLojaInicial.value);
+        });
     }
 
     // Função do botão de Sair (Logout)

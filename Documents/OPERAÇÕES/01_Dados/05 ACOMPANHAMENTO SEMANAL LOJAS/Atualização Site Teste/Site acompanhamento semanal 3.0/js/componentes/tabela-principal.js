@@ -72,6 +72,10 @@ export async function preencherTabelaPrincipal(supabase, filialEscolhida, period
     // =========================================================
     const deParaIndicadores = {
         'Venda Liquida': { coluna: 'venda_liquida', tipo: 'moeda' },
+        'Qtd Cliente': { coluna: 'qtd_cliente', tipo: 'inteiro_formatado' },
+        'Qtd Clientes': { coluna: 'qtd_cliente', tipo: 'inteiro_formatado' },
+        'Quantidade de Clientes': { coluna: 'qtd_cliente', tipo: 'inteiro_formatado' },
+        'qtd_cliente': { coluna: 'qtd_cliente', tipo: 'inteiro_formatado' },
         'Itens Por Cliente': { coluna: 'itens_por_cliente', tipo: 'decimal' }, 
         'Aproveitamento': { coluna: 'aproveitamento', tipo: 'percentual_uma_casa' },
         'Ticket Médio': { coluna: 'ticket_medio', tipo: 'moeda' },
@@ -79,8 +83,7 @@ export async function preencherTabelaPrincipal(supabase, filialEscolhida, period
         'Desconto': { coluna: 'desconto', tipo: 'percentual_uma_casa' },
         'Cobertura': { coluna: 'cobertura', tipo: 'inteiro_puro' }, 
         'Excesso': { coluna: 'excesso', tipo: 'inteiro_puro' },     
-        'Falta': { coluna: 'falta', tipo: 'percentual_uma_casa' },
-        'EAS': { coluna: 'eas', tipo: 'percentual_uma_casa' }
+        'Falta': { coluna: 'falta', tipo: 'percentual_uma_casa' }
     };
 
     // =========================================================
@@ -130,6 +133,8 @@ function formatarValor(valor, tipo) {
             return valorPercentual.toFixed(1).replace('.', ',') + '%';
         case 'decimal':
             return num.toFixed(2).replace('.', ',');
+        case 'inteiro_formatado':
+            return Math.round(num).toLocaleString('pt-BR');
         case 'inteiro_puro':
             return Math.round(num).toString();
         default:
