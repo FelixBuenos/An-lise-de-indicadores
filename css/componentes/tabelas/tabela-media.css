@@ -4,33 +4,33 @@
 --------------------------------------------------- */
 
 .tabela-larga {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-top: -20px; /*ajusta o espaçamento entre as tabelas*/
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	margin-top: -20px; /*ajusta o espaçamento entre as tabelas*/
 }
 
 .tabela-larga table {
-    min-width: 1100px; 
+	min-width: 1100px;
 }
 
 .tabela-larga .tabela-acompanhamento thead th {
-    background-color: black;
-    color: #ffffff;
-    border-bottom: 3px solid #2c3e50;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding: 14px 14px;
+	background-color: black;
+	color: #ffffff;
+	border-bottom: 3px solid #2c3e50;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 14px 14px;
 }
 
 .tabela-larga tbody tr:hover {
-    background-color: #f1f2f6;
+	background-color: #f1f2f6;
 }
 
 .tabela-larga tbody td.coluna-fixa {
-    font-weight: bold;
-    color: #2c3e50;
-    background-color: #ffffff; 
-    position: sticky;
-    left: 0;
-    border-right: 2px solid #e2e8f0;
+	font-weight: bold;
+	color: #2c3e50;
+	background-color: #ffffff;
+	position: sticky;
+	left: 0;
+	border-right: 2px solid #e2e8f0;
 }

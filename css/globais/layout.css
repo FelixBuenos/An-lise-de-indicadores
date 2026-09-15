@@ -1,90 +1,102 @@
 /* Contêiner Principal do Dashboard (Segura todas as tabelas) */
 .dashboard-main {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    gap: 30px; 
-    padding: 20px;
-    width: 100%;
-    max-width: 1400px; 
-    margin: 0 auto; 
-    box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 24px;
+	padding: 0;
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	box-sizing: border-box;
 }
 
 /* Ajuste do Espaçamento em Telas Menores */
 @media (max-width: 1100px) {
-    .dashboard-main {
-        gap: 24px;
-        padding: 10px;
-    }
+	.dashboard-main {
+		gap: 20px;
+		padding: 0;
+	}
 }
 
 /* ========================================================
    CONFIGURAÇÕES NATIVAS DE EXPORTAÇÃO PARA PDF (PRINT)
 ======================================================== */
 @media print {
-    /* 1. Folha A4 Deitada e margens mínimas para o fundo vazar até a borda */
-    @page {
-        size: A4 landscape;
-        margin: 5mm; 
-    }
+	/* 1. Folha A4 Deitada e margens mínimas para o fundo vazar até a borda */
+	@page {
+		size: A4 landscape;
+		margin: 5mm;
+	}
 
-    /* 2. FORÇA A RENDERIZAÇÃO DE CORES, SOMBRAS E FUNDOS */
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
+	/* 2. FORÇA A RENDERIZAÇÃO DE CORES, SOMBRAS E FUNDOS */
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
 
-    /* 3. O FUNDO DO DASHBOARD E O ZOOM */
-    html, body {
-        /* A cor de fundo cinza/azulada clarinha que fica atrás das tabelas */
-        background-color: #f1f5f9 !important; 
-        margin: 0 !important;
-        padding: 5mm 10mm !important; /* Dá um respiro nas laterais */
-        
-        /* Ajuste esse número (0.75 a 0.85) se quiser as tabelas maiores ou menores na folha */
-        zoom: 0.80 !important; 
-    }
+	/* 3. O FUNDO DO DASHBOARD E O ZOOM */
+	html,
+	body {
+		/* A cor de fundo cinza/azulada clarinha que fica atrás das tabelas */
+		background-color: #f1f5f9;
+		margin: 0;
+		padding: 5mm 10mm; /* Dá um respiro nas laterais */
 
-    /* 4. ESCONDE O QUE NÃO É TABELA */
-    .filtros, 
-    #btn-exportar-pdf, 
-    #btn-filtrar,
-    .cabecalho-dashboard {
-        display: none !important; /* Esconde o cabeçalho superior para focar só nos cartões */
-    }
+		/* Ajuste esse número (0.75 a 0.85) se quiser as tabelas maiores ou menores na folha */
+		zoom: 0.8;
+	}
 
-    /* 5. O VISUAL DE "CARTÃO" (CARDS) COM SOMBRA E CANTOS ARREDONDADOS */
-    .tabela-container {
-        background-color: #ffffff !important;
-        border-radius: 16px !important; /* Cantos arredondados iguais ao seu print */
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; /* Sombra elegante */
-        margin-bottom: 25px !important;
-        
-        /* OVERFLOW HIDDEN é o segredo para o cabeçalho colorido não vazar pelos cantos arredondados */
-        overflow: hidden !important; 
-        border: 1px solid #e2e8f0 !important;
-        
-        /* Proíbe o corte no meio do cartão */
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-    }
+	/* 4. ESCONDE O QUE NÃO É TABELA */
+	.filtros,
+	#btn-exportar-pdf,
+	#btn-filtrar,
+	.cabecalho-dashboard {
+		display: none; /* Esconde o cabeçalho superior para focar só nos cartões */
+	}
 
-    /* 6. AJUSTE DAS TABELAS DENTRO DOS CARTÕES */
-    table {
-        width: 100% !important;
-        border-collapse: collapse !important;
-        margin: 0 !important;
-    }
+	/* 5. O VISUAL DE "CARTÃO" (CARDS) COM SOMBRA E CANTOS ARREDONDADOS */
+	.tabela-container {
+		background-color: #ffffff;
+		border-radius: 16px; /* Cantos arredondados iguais ao seu print */
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra elegante */
+		margin-bottom: 25px;
 
-    /* Garante que os cabeçalhos mantenham as cores fortes */
-    .tabela-principal thead th { background-color: #0056b3 !important; color: #ffffff !important; }
-    .tabela-larga thead th { background-color: #1e293b !important; color: #ffffff !important; }
-    .tabela-resumo thead th { background-color: #10b981 !important; color: #ffffff !important; }
+		/* OVERFLOW HIDDEN é o segredo para o cabeçalho colorido não vazar pelos cantos arredondados */
+		overflow: hidden;
+		border: 1px solid #e2e8f0;
 
-    /* Bordas internas das células para ficar igualzinho ao painel */
-    .tabela-acompanhamento th, 
-    .tabela-acompanhamento td {
-        border-bottom: 1px solid #e2e8f0 !important;
-    }
+		/* Proíbe o corte no meio do cartão */
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+
+	/* 6. AJUSTE DAS TABELAS DENTRO DOS CARTÕES */
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0;
+	}
+
+	/* Garante que os cabeçalhos mantenham as cores fortes */
+	.tabela-principal thead th {
+		background-color: #0056b3;
+		color: #ffffff;
+	}
+	.tabela-larga thead th {
+		background-color: #1e293b;
+		color: #ffffff;
+	}
+	.tabela-resumo thead th {
+		background-color: #10b981;
+		color: #ffffff;
+	}
+
+	/* Bordas internas das células para ficar igualzinho ao painel */
+	.tabela-acompanhamento th,
+	.tabela-acompanhamento td {
+		border-bottom: 1px solid #e2e8f0;
+	}
 }
