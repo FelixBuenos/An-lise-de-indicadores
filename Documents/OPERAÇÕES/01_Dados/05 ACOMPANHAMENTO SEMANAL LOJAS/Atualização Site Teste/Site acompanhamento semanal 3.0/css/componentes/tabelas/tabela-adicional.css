@@ -1,82 +1,82 @@
 /* css/componentes/tabelas/tabela-adicional.css */
 
 .secao-dupla-tabelas {
-    display: block;
-    width: 100%;
-    margin-top: 24px;
-    margin-bottom: 30px;
+	display: block;
+	width: 100%;
+	margin-top: 24px;
+	margin-bottom: 30px;
 }
 
 @media (min-width: 1024px) {
-    .secao-dupla-tabelas {
-        display: flex;
-        gap: 24px; 
-        align-items: center; 
-    }
+	.secao-dupla-tabelas {
+		display: flex;
+		gap: 24px;
+		align-items: center;
+	}
 
-    .secao-dupla-tabelas .tabela-container {
-        flex: 1; 
-        margin-bottom: 0;
-    }
+	.secao-dupla-tabelas .tabela-container {
+		flex: 1;
+		margin-bottom: 0;
+	}
 }
 
 /* ==========================================
    CABEÇALHO DA TABELA ADICIONAL (VERMELHO)
    ========================================== */
 .tabela-adicional thead tr {
-    background: radial-gradient(circle at center, #c21a1a 0%, #a31111 100%);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+	background: radial-gradient(circle at center, #c21a1a 0%, #a31111 100%);
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
 }
 
 .tabela-adicional th {
-    color: #ffffff;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding-top: 18px;    
-    padding-bottom: 18px; 
-    padding-left: 12px;
-    padding-right: 12px;
-    
-    /* Linha divisória suave e clara no cabeçalho vermelho */
-    border-right: 1px solid rgba(255, 255, 255, 0.2); 
+	color: #ffffff;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding-top: 18px;
+	padding-bottom: 18px;
+	padding-left: 12px;
+	padding-right: 12px;
+
+	/* Linha divisória suave e clara no cabeçalho vermelho */
+	border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .tabela-adicional th:last-child {
-    border-right: none; /* Remove a linha da última coluna para o visual ficar limpo */
+	border-right: none; /* Remove a linha da última coluna para o visual ficar limpo */
 }
 
 /* ==========================================
    CORPO DA TABELA (BORDAS E LISTRAS)
    ========================================== */
 .tabela-adicional td {
-    padding: 14px 12px; /* Dá um respiro para o texto */
-    border-bottom: 1px solid #e2e8f0; /* Linha divisória horizontal */
-    border-right: 1px solid #e2e8f0;  /* Linha divisória vertical (Colunas) */
+	padding: 14px 12px; /* Dá um respiro para o texto */
+	border-bottom: 1px solid #e2e8f0; /* Linha divisória horizontal */
+	border-right: 1px solid #e2e8f0; /* Linha divisória vertical (Colunas) */
 }
 
 .tabela-adicional td:last-child {
-    border-right: none; /* Remove a linha vertical da última coluna */
+	border-right: none; /* Remove a linha vertical da última coluna */
 }
 
 /* Destaca levemente a primeira coluna (Nome do Indicador) */
 .tabela-adicional td.coluna-fixa {
-    font-weight: 600;
-    color: #1e293b;
-    background-color: #f8fafc;
+	font-weight: 600;
+	color: #1e293b;
+	background-color: #f8fafc;
 }
 
 /* Efeito Zebrado: Pinta o fundo das linhas pares de cinza bem clarinho */
 .tabela-adicional tbody tr:nth-child(even) td.coluna-fixa,
 .tabela-adicional tbody tr:nth-child(even) {
-    background-color: #f1f5f9;
+	background-color: #f1f5f9;
 }
 
 /* Efeito ao passar o mouse */
 .tabela-adicional tbody tr:hover,
 .tabela-adicional tbody tr:hover td.coluna-fixa {
-    background-color: #e2e8f0;
-    cursor: pointer;
+	background-color: #e2e8f0;
+	cursor: pointer;
 }
 
 /* ===================================================
@@ -85,37 +85,37 @@
 
 /* 1. Força os dois blocos (verde e vermelho) a ficarem lado a lado com a mesma altura */
 .secao-dupla-tabelas {
-    display: flex !important;
-    gap: 20px !important;            /* Espaço entre as duas tabelas */
-    align-items: stretch !important; /* Obriga os dois cards a terem a mesma altura total */
-    width: 100% !important;
+	display: flex;
+	gap: 20px; /* Espaço entre as duas tabelas */
+	align-items: stretch; /* Obriga os dois cards a terem a mesma altura total */
+	width: 100%;
 }
 
 /* 2. Faz cada container de tabela ocupar exatamente 50% da largura da tela */
 .secao-dupla-tabelas .tabela-container {
-    flex: 1 !important; 
-    display: flex !important;
-    flex-direction: column !important;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 /* 3. Obriga as tabelas HTML a preencherem todo o espaço do container */
 .secao-dupla-tabelas table {
-    width: 100% !important;
-    height: 100% !important;         /* Faz a tabela vermelha esticar para igualar a verde */
-    border-collapse: collapse !important;
+	width: 100%;
+	height: 100%; /* Faz a tabela vermelha esticar para igualar a verde */
+	border-collapse: collapse;
 }
 
 /* 4. Padroniza a altura e o tamanho das letras dos cabeçalhos */
 .secao-dupla-tabelas th {
-    height: auto !important;          /* Libera o cabeçalho para não ficar gigante */
-    padding: 12px 8px !important;     /* Ajuste de espaçamento interno */
-    font-size: 0.9rem !important;     /* FORÇA O MESMO TAMANHO DE LETRA PARA AMBOS */
-    font-weight: 700 !important;      /* Garante que ambos fiquem em negrito com o mesmo peso */
-    vertical-align: middle !important;
+	height: auto; /* Libera o cabeçalho para não ficar gigante */
+	padding: 12px 8px; /* Ajuste de espaçamento interno */
+	font-size: 0.9rem; /* FORÇA O MESMO TAMANHO DE LETRA PARA AMBOS */
+	font-weight: 700; /* Garante que ambos fiquem em negrito com o mesmo peso */
+	vertical-align: middle;
 }
 
 .secao-dupla-tabelas td {
-    height: 48px !important;          /* Mantém as linhas de baixo altas e iguais */
-    box-sizing: border-box !important;
-    vertical-align: middle !important;
+	height: 48px; /* Mantém as linhas de baixo altas e iguais */
+	box-sizing: border-box;
+	vertical-align: middle;
 }

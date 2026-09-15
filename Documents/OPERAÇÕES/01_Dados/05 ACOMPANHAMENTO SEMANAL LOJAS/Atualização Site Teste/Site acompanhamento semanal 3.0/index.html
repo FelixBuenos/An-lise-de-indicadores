@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -13,13 +13,13 @@
 
     <link rel="stylesheet" href="css/globais/variaveis.css?v=999">
     <link rel="stylesheet" href="css/globais/base.css?v=999">
-    <link rel="stylesheet" href="css/globais/layout.css?v=999">
+    <link rel="stylesheet" href="css/globais/layout.css?v=1000">
 
-    <link rel="stylesheet" href="css/componentes/header/header.css?v=999">
+    <link rel="stylesheet" href="css/componentes/header/header.css?v=1000">
     <link rel="stylesheet" href="css/componentes/appLauncher.css?v=999">
     <link rel="stylesheet" href="css/componentes/filtros/filtros.css?v=999">
 
-    <link rel="stylesheet" href="css/componentes/tabelas/tabela-base.css?v=999">
+    <link rel="stylesheet" href="css/componentes/tabelas/tabela-base.css?v=1000">
     <link rel="stylesheet" href="css/componentes/tabelas/tabela-dados-lojas.css?v=999">
     <link rel="stylesheet" href="css/componentes/tabelas/tabela-checklist.css?v=999">
     <link rel="stylesheet" href="css/componentes/tabelas/tabela-media.css?v=999">
@@ -36,7 +36,7 @@
             style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; width: 100%; gap: 16px;">
             <div class="report-title-container" style="display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
                 <img src="imagens/logo-farmacias-conviva.png" alt="Logo Conviva" class="logo-conviva">
-                <h1 id="report-name" class="titulo_pagina"></h1>
+                <h1 id="report-name" class="titulo_pagina">Acompanhamento Semanal</h1>
             </div>
 
             <div class="filtros"
@@ -82,20 +82,20 @@
                     </select>
                 </div>
 
-                <button id="btn-filtrar" class="btn-primary">Filtrar</button>
+                <button type="button" id="btn-filtrar" class="btn-primary">Filtrar</button>
 
-                <button id="btn-exportar-pdf" class="btn-pdf">
+                <button type="button" id="btn-exportar-pdf" class="btn-pdf">
                     <i class="fas fa-file-pdf"></i>
                 </button>
 
-                <button id="btn-nova-avaliacao" class="btn-nova-demanda-header"
+                <button type="button" id="btn-nova-avaliacao" class="btn-nova-demanda-header"
                     onclick="window.abrirModalDemanda ? window.abrirModalDemanda() : null" title="Criar Nova Demanda">
                     <i class="fas fa-plus"></i> Nova Demanda
                 </button>
 
                 <!-- App Launcher (Menu de Soluções) -->
                 <div class="app-launcher-container">
-                    <button id="btn-app-launcher" class="btn-app-launcher" title="Nossas Soluções">
+                    <button type="button" id="btn-app-launcher" class="btn-app-launcher" title="Nossas Soluções">
                         <i class="fas fa-th"></i>
                     </button>
                     <div id="app-launcher-menu" class="app-launcher-menu hidden">
@@ -110,7 +110,7 @@
                     </div>
                 </div>
 
-                <button id="btn-sair" class="btn-sair-header" title="Sair do sistema">
+                <button type="button" id="btn-sair" class="btn-sair-header" title="Sair do sistema">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
@@ -318,8 +318,8 @@
             <div class="tabela-container tabela-resumo">
                 <table class="tabela-acompanhamento">
                     <thead>
-                        <tr style="background-color: #1b5e20 !important;">
-                            <th scope="col" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">
+                        <tr style="background-color: #1b5e20;">
+                            <th scope="col" style="position: relative; background-color: #1b5e20; color: #ffffff; border: none;">
                                 ÁREA
                                 <a href="https://app.powerbi.com/links/R_nTGxOHjH?ctid=d9052b1c-fa68-416e-9d0e-3eaa717d2cef&pbi_source=linkShare" 
                                    target="_blank" 
@@ -329,9 +329,9 @@
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </th>
-                            <th scope="col" id="th-mes-anterior" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">MÊS ANTERIOR</th>
-                            <th scope="col" id="th-nota-loja" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">NOTA LOJA</th>
-                            <th scope="col" style="position: relative; background-color: #1b5e20 !important; color: #ffffff !important; border: none;">MÉDIA REDE</th>
+                            <th scope="col" id="th-mes-anterior" style="position: relative; background-color: #1b5e20; color: #ffffff; border: none;">MÊS ANTERIOR</th>
+                            <th scope="col" id="th-nota-loja" style="position: relative; background-color: #1b5e20; color: #ffffff; border: none;">NOTA LOJA</th>
+                            <th scope="col" style="position: relative; background-color: #1b5e20; color: #ffffff; border: none;">MÉDIA REDE</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -456,7 +456,7 @@
         <div class="modal-conteudo modal-demanda-conteudo">
             <div class="modal-cabecalho">
                 <h2><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Cadastrar Demanda da Filial</h2>
-                <button id="btn-fechar-modal" class="btn-fechar">&times;</button>
+                <button type="button" id="btn-fechar-modal" class="btn-fechar">&times;</button>
             </div>
 
             <div class="modal-corpo modal-demanda-corpo">
@@ -478,7 +478,10 @@
                             <option value="GC">GC</option>
                             <option value="FIDELIZA">FIDELIZA</option>
                             <option value="BÚSSOLA">BÚSSOLA</option>
+                            <option value="OUTROS">OUTROS</option>
                         </select>
+                        <input type="text" id="aval-ferramenta-outros" class="input-moderno" 
+                            placeholder="Qual ferramenta? Digite aqui..." style="display: none; margin-top: 8px;">
                     </div>
 
                     <div class="campo">
@@ -534,8 +537,8 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script type="module" src="main.js?v=1002"></script>
-    <script type="module" src="js/componentes/avaliacao.js?v=999"></script>
+    <script type="module" src="main.js?v=1003"></script>
+    <script type="module" src="js/componentes/avaliacao.js?v=1003"></script>
 </body>
 
 </html>

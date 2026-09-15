@@ -1,5 +1,5 @@
 <!DOCTYPE html>  
-<html lang="pt-br">  
+<html lang="pt-BR">
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -10,8 +10,8 @@
 
     <link rel="stylesheet" href="css/globais/variaveis.css">  
     <link rel="stylesheet" href="css/globais/base.css">  
-    <link rel="stylesheet" href="css/globais/layout.css">  
-    <link rel="stylesheet" href="css/componentes/header/header.css">  
+    <link rel="stylesheet" href="css/globais/layout.css?v=1000">  
+    <link rel="stylesheet" href="css/componentes/header/header.css?v=1000">  
     <link rel="stylesheet" href="css/paginas/graficos.css">  
 
     <style>
@@ -51,8 +51,49 @@
             border-bottom: 1px solid #e2e8f0;
             color: #334155;
         }
-        .tabela-detalhamento tr:hover {
-            background-color: #f1f5f9;
+        /* Estilização dos Botões de Status */
+        .btn-status-interativo {
+            border: none;
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            font-family: inherit;
+            color: #ffffff;
+        }
+        .btn-status-interativo:hover,
+        .btn-status-interativo:focus {
+            transform: translateY(-2px);
+            outline: none;
+        }
+        .btn-status-baixo-style {
+            background-color: #10b981;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+        .btn-status-baixo-style:hover,
+        .btn-status-baixo-style:focus {
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.45);
+        }
+        .btn-status-medio-style {
+            background-color: #f59e0b;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+        }
+        .btn-status-medio-style:hover,
+        .btn-status-medio-style:focus {
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.45);
+        }
+        .btn-status-alto-style {
+            background-color: #ef4444;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+        .btn-status-alto-style:hover,
+        .btn-status-alto-style:focus {
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.45);
         }
     </style>
 </head>  
@@ -83,7 +124,7 @@
                     <select id="select-periodo" class="filter-select" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 0.85rem; color: #0f172a; background-color: #f8fafc; outline: none; cursor: pointer;"></select>  
                 </div>  
   
-                <button id="btn-atualizar-graficos" class="btn-filtrar" style="display: flex; align-items: center; gap: 6px; background-color: #0055a5; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: background-color 0.2s;">
+                <button type="button" id="btn-atualizar-graficos" class="btn-filtrar" style="display: flex; align-items: center; gap: 6px; background-color: #0055a5; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: background-color 0.2s;">
                     <i class="fas fa-sync-alt"></i> Atualizar Gráficos
                 </button>
             </div>  
@@ -140,13 +181,13 @@
                 </div>
                 <p style="margin: 0 0 20px 0; font-size: 0.85rem; color: #64748b;">Selecione o status operacional desejado para detalhar as filiais:</p>
                 <div style="display: flex; gap: 16px; justify-content: center; align-items: center; width: 100%; min-height: 120px; flex-wrap: wrap;">
-                    <button id="btn-status-baixo" style="background-color: #10b981; color: white; border: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(16, 185, 129, 0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(16, 185, 129, 0.3)';">
+                    <button type="button" id="btn-status-baixo" class="btn-status-interativo btn-status-baixo-style">
                         <i class="fas fa-check-circle" style="font-size: 1.3rem;"></i> Verde (Baixo) <span id="count-baixo" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-left: 6px;">(0)</span>
                     </button>
-                    <button id="btn-status-medio" style="background-color: #f59e0b; color: white; border: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(245, 158, 11, 0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(245, 158, 11, 0.3)';">
+                    <button type="button" id="btn-status-medio" class="btn-status-interativo btn-status-medio-style">
                         <i class="fas fa-exclamation-triangle" style="font-size: 1.3rem;"></i> Amarelo (Médio) <span id="count-medio" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-left: 6px;">(0)</span>
                     </button>
-                    <button id="btn-status-alto" style="background-color: #ef4444; color: white; border: none; padding: 18px 36px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(239, 68, 68, 0.45)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 10px rgba(239, 68, 68, 0.3)';">
+                    <button type="button" id="btn-status-alto" class="btn-status-interativo btn-status-alto-style">
                         <i class="fas fa-times-circle" style="font-size: 1.3rem;"></i> Vermelho (Alto) <span id="count-alto" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-left: 6px;">(0)</span>
                     </button>
                 </div>
@@ -160,7 +201,7 @@
                     <h3 id="titulo-detalhe-rosca" style="margin: 0; font-size: 1.1rem; color: #0f172a;">Detalhamento das Lojas</h3>
                     <p id="subtitulo-detalhe-rosca" style="margin: 4px 0 0 0; font-size: 0.85rem; color: #64748b;">Listagem de filiais da fatia selecionada</p>
                 </div>
-                <button id="btn-fechar-detalhe-rosca" style="background: transparent; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #64748b; font-weight: 600;">
+                <button type="button" id="btn-fechar-detalhe-rosca" style="background: transparent; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; cursor: pointer; color: #64748b; font-weight: 600;">
                     <i class="fas fa-times"></i> Fechar Tabela
                 </button>
             </div>

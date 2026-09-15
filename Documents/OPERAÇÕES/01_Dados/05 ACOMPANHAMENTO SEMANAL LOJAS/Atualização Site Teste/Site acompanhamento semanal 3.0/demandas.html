@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -13,11 +13,11 @@
 
     <link rel="stylesheet" href="css/globais/variaveis.css?v=15">
     <link rel="stylesheet" href="css/globais/base.css?v=15">
-    <link rel="stylesheet" href="css/globais/layout.css?v=15">
+    <link rel="stylesheet" href="css/globais/layout.css?v=16">
 
-    <link rel="stylesheet" href="css/componentes/header/header.css?v=50">
+    <link rel="stylesheet" href="css/componentes/header/header.css?v=1000">
     <link rel="stylesheet" href="css/componentes/filtros/filtros.css?v=50">
-    <link rel="stylesheet" href="css/paginas/demandas.css?v=50">
+    <link rel="stylesheet" href="css/paginas/demandas.css?v=56">
 
     <!-- Biblioteca SheetJS para Exportação Excel Leve -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -103,15 +103,15 @@
                     </select>
                 </div>
 
-                <button id="btn-exportar-excel" class="btn-exportar-excel" title="Exportar dados filtrados para Excel">
+                <button type="button" id="btn-exportar-excel" class="btn-exportar-excel" title="Exportar dados filtrados para Excel">
                     <i class="fas fa-file-excel"></i> Exportar
                 </button>
 
-                <button id="btn-abrir-modal-demanda" class="btn-nova-demanda-topo">
+                <button type="button" id="btn-abrir-modal-demanda" class="btn-nova-demanda-topo">
                     <i class="fas fa-plus"></i> Nova Demanda
                 </button>
 
-                <button id="btn-sair" class="btn-sair-header" title="Sair do sistema">
+                <button type="button" id="btn-sair" class="btn-sair-header" title="Sair do sistema">
                     <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
@@ -194,7 +194,7 @@
             <div class="modal-cabecalho">
                 <h2 id="modal-demanda-titulo"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i> Cadastrar
                     Nova Demanda</h2>
-                <button id="btn-fechar-modal-demanda" class="btn-fechar">&times;</button>
+                <button type="button" id="btn-fechar-modal-demanda" class="btn-fechar">&times;</button>
             </div>
 
             <div class="modal-corpo modal-demanda-corpo">
@@ -217,7 +217,10 @@
                             <option value="GC">GC</option>
                             <option value="FIDELIZA">FIDELIZA</option>
                             <option value="BÚSSOLA">BÚSSOLA</option>
+                            <option value="OUTROS">OUTROS</option>
                         </select>
+                        <input type="text" id="cad-demanda-ferramenta-outros" class="input-moderno" 
+                            placeholder="Qual ferramenta? Digite aqui..." style="display: none; margin-top: 8px;">
                     </div>
 
                     <div class="campo">
@@ -273,7 +276,7 @@
         </div>
     </div>
 
-    <script type="module" src="js/componentes/demandas.js?v=53"></script>
+    <script type="module" src="js/componentes/demandas.js?v=57"></script>
 </body>
 
 </html>

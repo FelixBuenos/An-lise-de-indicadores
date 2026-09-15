@@ -1,66 +1,63 @@
 .tabela-container {
-    width: 100%;
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    overflow-x: auto;
-    overflow-y: hidden;
-    transition: all var(--transition);
-    animation: fadeIn 0.4s ease-out;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1;
+	width: 100%;
+	max-width: 100%;
+	background: var(--surface);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-lg);
+	overflow-x: auto;
+	overflow-y: hidden;
+	transition: all var(--transition);
+	animation: fadeIn 0.4s ease-out;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1;
 }
 
 .tabela-container:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-hover);
 }
 
 .tabela-acompanhamento {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9rem;
 }
 
 .tabela-acompanhamento td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--border);
-    text-align: center;
-    color: var(--text);
-    font-weight: 500;
-    transition: all var(--transition);
+	padding: 12px 14px;
+	border-bottom: 1px solid var(--border);
+	text-align: center;
+	color: var(--text);
+	font-weight: 500;
+	transition: all var(--transition);
 }
 
 .tabela-acompanhamento tbody tr:nth-child(even) {
-    background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
+	background: linear-gradient(135deg, #fafbfc 0%, #f8f9fa 100%);
 }
 
 .tabela-acompanhamento tbody tr {
-    transition: all var(--transition);
-    position: relative;
-}
-
-@media (max-width: 1100px) {
-    .tabela-container { width: 95%; }
+	transition: all var(--transition);
+	position: relative;
 }
 
 /* Efeito de destaque para a coluna clicada */
 .destaque-coluna {
-    background-color: #e6f2ff !important; /* Azul clarinho */
-    color: #000 !important;
-    font-weight: bold;
-    border-left: 2px solid #0056b3 !important; /* Linha azul escura nas laterais */
-    border-right: 2px solid #0056b3 !important;
-    transition: background-color 0.3s ease;
+	background-color: #e6f2ff; /* Azul clarinho */
+	color: #000;
+	font-weight: bold;
+	border-left: 2px solid #0056b3; /* Linha azul escura nas laterais */
+	border-right: 2px solid #0056b3;
+	transition: background-color 0.3s ease;
 }
 
 /* Transforma o mouse em uma 'mãozinha' ao passar nas linhas da tabela azul e dá um leve brilho */
 .tabela-principal tbody tr {
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
 }
 
 .tabela-principal tbody tr:hover {
-    background-color: #f8f9fa; 
+	background-color: #f8f9fa;
 }

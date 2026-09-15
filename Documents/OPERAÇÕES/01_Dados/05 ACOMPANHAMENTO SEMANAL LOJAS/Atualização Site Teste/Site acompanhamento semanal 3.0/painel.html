@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -33,7 +33,7 @@
 
                 <!-- App Launcher (Menu de Soluções) -->
                 <div class="app-launcher-container">
-                    <button id="btn-app-launcher" class="btn-app-launcher" title="Nossas Soluções">
+                    <button type="button" id="btn-app-launcher" class="btn-app-launcher" title="Nossas Soluções">
                         <i class="fas fa-th"></i>
                     </button>
                     <div id="app-launcher-menu" class="app-launcher-menu hidden">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <button id="btn-sair"
+                <button type="button" id="btn-sair"
                     style="background-color: #64748b; color: #ffffff; border: none; padding: 10px 16px; font-size: 0.9rem; font-weight: 600; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s ease;">
                     <i class="fas fa-sign-out-alt"></i> Sair
                 </button>
@@ -109,8 +109,8 @@
 
     <!-- Script de Logout, Proteção de Rota e App Launcher -->
     <script type="module">
-        import { supabase } from './js/servicos/supabaseClient.js';
         import { inicializarAppLauncher } from './js/componentes/appLauncher.js';
+        import { supabase } from './js/servicos/supabaseClient.js';
 
         async function verificarSessao() {
             const { data: { session } } = await supabase.auth.getSession();

@@ -1,157 +1,184 @@
 .filtros {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap; /* Permite quebrar linha caso os filtros excedam o espaço */
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap; /* Permite quebrar linha caso os filtros excedam o espaço */
 }
 
 .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(0, 74, 124, 0.03);
-    padding: 4px 12px;
-    border-radius: var(--radius-md);
-    transition: background var(--transition);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	background: rgba(0, 74, 124, 0.03);
+	padding: 4px 12px;
+	border-radius: var(--radius-md);
+	transition: background var(--transition);
 }
 
 .filter-group:hover {
-    background: rgba(0, 74, 124, 0.06);
+	background: rgba(0, 74, 124, 0.06);
 }
 
 .filter-label {
-    font-size: 0.7rem;
-    font-weight: 800;
-    background: var(--primary-azul-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
+	font-size: 0.7rem;
+	font-weight: 800;
+	background: var(--primary-azul-gradient);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
 }
 
 .filter-select {
-    height: 34px;
-    padding: 6px 10px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all var(--transition);
-    cursor: pointer;
+	height: 34px;
+	padding: 6px 10px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	background: var(--surface);
+	color: var(--text);
+	font-size: 0.85rem;
+	font-weight: 500;
+	transition: all var(--transition);
+	cursor: pointer;
 }
 
 .filter-select:hover {
-    border-color: var(--primary-azul);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+	border-color: var(--primary-azul);
+	transform: translateY(-1px);
+	box-shadow: var(--shadow-sm);
 }
 
 .filter-select:focus {
-    outline: none;
-    border-color: var(--primary-azul);
-    box-shadow: 0 0 0 3px rgba(0, 74, 124, 0.15);
+	outline: none;
+	border-color: var(--primary-azul);
+	box-shadow: 0 0 0 3px rgba(0, 74, 124, 0.15);
 }
 
 .btn-primary {
-    height: 34px;
-    padding: 0 20px;
-    border: none;
-    border-radius: var(--radius-sm);
-    background: var(--primary-azul-gradient);
-    color: #fff;
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all var(--transition);
-    position: relative;
-    overflow: hidden;
+	height: 34px;
+	padding: 0 20px;
+	border: none;
+	border-radius: var(--radius-sm);
+	background: var(--primary-azul-gradient);
+	color: #fff;
+	font-weight: 700;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition: all var(--transition);
+	position: relative;
+	overflow: hidden;
 }
 
 .btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.2),
+		transparent
+	);
+	transition: left 0.5s;
 }
 
 .btn-primary:hover {
-    filter: brightness(1.05);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 74, 124, 0.3);
+	filter: brightness(1.05);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(0, 74, 124, 0.3);
 }
 
-.btn-primary:hover::before { left: 100%; }
-.btn-primary:active { transform: translateY(0); }
+.btn-primary:hover::before {
+	left: 100%;
+}
+.btn-primary:active {
+	transform: translateY(0);
+}
 
 @media (max-width: 1650px) {
-    .filtros {
-        justify-content: center;
-        flex-wrap: wrap;
-        width: 100%;
-    }
+	.filtros {
+		justify-content: center;
+		flex-wrap: wrap;
+		width: 100%;
+	}
 }
 
 /* Estilo do Botão de Exportar PDF */
 .btn-pdf {
-    background-color: #ef4444; 
-    color: #ffffff;
-    border: none;
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.2s ease;
-    margin-left: 10px; /* Dá um espaço do botão Filtrar */
+	background-color: #ef4444;
+	color: #ffffff;
+	border: none;
+	padding: 10px 16px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	border-radius: 6px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	transition: background 0.2s ease;
+	margin-left: 10px; /* Dá um espaço do botão Filtrar */
 }
 
 .btn-pdf:hover {
-    background-color: #dc2626; 
+	background-color: #dc2626;
 }
 
 /* =========================================
    INDICADOR DE STATUS SUTIL (BADGE)
 ========================================= */
 .indicador-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 20px; 
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-left: auto; /* Empurra o status para o lado direito */
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-    cursor: default; 
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 14px;
+	border-radius: 20px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	margin-left: auto; /* Empurra o status para o lado direito */
+	border: 1px solid transparent;
+	transition: all 0.3s ease;
+	cursor: default;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
 }
 
 .status-bolinha {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
 }
 
 /* 1. Crítico (Vermelho suave) */
-.status-critico { background-color: #fef2f2; color: #ef4444; border-color: #fca5a5; }
-.status-critico .status-bolinha { background-color: #ef4444; }
+.status-critico {
+	background-color: #fef2f2;
+	color: #ef4444;
+	border-color: #fca5a5;
+}
+.status-critico .status-bolinha {
+	background-color: #ef4444;
+}
 
 /* 2. Médio (Laranja suave) */
-.status-medio { background-color: #fff7ed; color: #f97316; border-color: #fdba74; }
-.status-medio .status-bolinha { background-color: #f97316; }
+.status-medio {
+	background-color: #fff7ed;
+	color: #f97316;
+	border-color: #fdba74;
+}
+.status-medio .status-bolinha {
+	background-color: #f97316;
+}
 
 /* 3. Baixo (Verde suave) */
-.status-baixo { background-color: #f0fdf4; color: #10b981; border-color: #86efac; }
-.status-baixo .status-bolinha { background-color: #10b981; }
+.status-baixo {
+	background-color: #f0fdf4;
+	color: #10b981;
+	border-color: #86efac;
+}
+.status-baixo .status-bolinha {
+	background-color: #10b981;
+}
